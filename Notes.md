@@ -100,3 +100,154 @@ Based on how much external human supervision the system receives during training
 * **Slow Adaptation to Trends:** Because updates rely on a set schedule, the system cannot react to sudden real-time events or viral shifts instantly. By the time the next batch update runs, the trend may already be irrelevant `[00:09:39]`.
 
 ![alt text](1_DmOcKlevCbcNd4n4JBYtzQ.png)
+
+## Online learning
+
+This lecture by [CampusX](http://www.youtube.com/watch?v=3oOipgCbLIk) covers the concept of **Online Machine Learning**, contrasting it with Batch (Offline) Learning, exploring its applications, implementation strategies, and associated risks.
+
+Here is a summary of the key definitions and key points to remember from the lecture, with timestamps removed:
+
+---
+
+### 1. Definition
+
+* **Online Machine Learning** is an incremental learning technique where a model is trained sequentially as data arrives, rather than all at once.
+* Instead of retraining the whole model on the entire dataset (which is computationally expensive), the model updates its weights dynamically on the server or in production using small streams or chunks of data called **mini-batches**.
+
+### 2. When to Use Online Learning
+
+You should opt for Online Learning under the following scenarios:
+
+* **Concept Drift:** When the nature of the problem or underlying data patterns change dynamically over time (e.g., changing consumer behavior on e-commerce platforms during a festive sale).
+* **Cost Efficiency:** Retraining massive datasets using batch learning repeatedly is incredibly expensive. Online learning processes data in tiny chunks, reducing computation overhead.
+* **Fast / Dynamic Solutions:** When the application demands real-time responsiveness to user interactions.
+* **Out-of-Core Learning:** When you have a massive dataset (e.g., $50\text{ GB}$) that exceeds your system's memory capacity (e.g., $8\text{ GB}$ RAM). Online learning allows you to load and train on small chunks sequentially.
+
+### 3. Real-World Examples
+
+* **Smart Keyboards (e.g., SwiftKey):** Adapts and personalizes text predictions dynamically as you type.
+* **Recommendation Feeds (e.g., YouTube):** If you click a specific video, your home feed updates with related content immediately upon returning to the home screen.
+* **AI Assistants / Chatbots:** Continuous learning from live user queries to optimize conversational accuracy.
+
+### 4. Implementation Tools & Code Logic
+
+* **Scikit-Learn (`partial_fit`):** Standard batch algorithms use `.fit()`. However, Online Learning algorithms like `SGDRegressor` use the `.partial_fit()` method, which allows you to continually pass fresh data and update the existing model state incrementally without losing prior learning.
+* **Dedicated Streaming Libraries:** Libraries like [River](https://github.com/online-ml/river) (a Python library explicitly built for streaming data) and **Vowpal Wabbit** are excellent industry choices for complex online learning tasks.
+
+---
+
+### 💡 Key Points to Remember
+
+> ⚠️ **The Learning Rate ($\eta$) Dilemma**
+> Setting the correct learning rate is the hardest part of online learning.
+> * If it is **too fast**, the model suffers from catastrophic forgetting (it learns new data too fast and completely forgets old patterns).
+> * If it is **too slow**, the model reacts poorly to live trend changes.
+> 
+> 
+
+> 🛡️ **Security and Data Poisoning Risk**
+> Because the model learns continuously from incoming server data, it is vulnerable to malicious data injections or server anomalies. If garbage or biased data is fed into the pipeline, the model's behavior will quickly decay.
+> * *Fix:* You **must** build automated anomaly detection layers to screen live data, closely monitor performance, and have a rollback strategy to revert the model to a previous stable state if it misbehaves.
+> 
+> 
+
+---
+
+### Comparison Summary: Online vs. Offline (Batch) Learning
+
+| Feature | Offline / Batch Learning | Online Learning |
+| --- | --- | --- |
+| **Data Processing** | Processes data all at once in a bulk dataset. | Processes data continuously and incrementally . |
+| **System Complexity** | Lower complexity; trained offline and deployed to only make predictions. | Higher complexity; must continually learn, predict, and be monitored live. |
+| **Best Suited For** | Static data where patterns don't change frequently (e.g., Cat vs. Dog classifier). | Volatile environments with fluctuating trends (e.g., Stock prediction, live recommendation systems). |
+
+<br>
+<br>
+
+# Instance-Based Vs Model-Based Learning
+![alt text](1_esVJb_A1pD8FL4Ol4N7nCw@2x.jpg)
+## Core Overview
+
+The lecture focuses on how different Machine Learning (ML) algorithms learn from data. Just like humans learn either by **memorization (rote learning)** or **generalization (understanding the concept)**, machine learning models fall into two primary categories based on their learning approach: **Instance-Based Learning** and **Model-Based Learning**.
+
+
+
+## 1. Instance-Based Learning
+
+```
+[ Training Data ] 
+       │
+       ▼  (Stored directly into memory without changes)
+[ Database / Storage ] 
+       │
+       ├─◄─ [ New Query Instance ] (An unseen data point arrives)
+       ▼
+[ Similarity / Distance Measure ] (e.g., calculates closest neighbors)
+       │
+       ▼
+[ Prediction / Output ] (Based on majority vote or average of neighbors)
+
+```
+
+### Brief Definition
+
+Instance-Based Learning is an approach where the system learns the training examples by heart (memorization) and generalizes to new instances on-the-fly based on a similarity measure (e.g., distance). It is also famously referred to as **Lazy Learning** because the model does no real work during the training phase.
+
+### Key Points :
+
+* **No Explicit Training Phase:** The algorithm does not construct an abstract model or rule during training; it simply stores the raw training data as-is.
+* **Similarity-Driven:** When a new query point is introduced, the algorithm calculates its similarity or distance (e.g., Euclidean distance) to all stored data points to predict the outcome.
+* **Example Given:** **K-Nearest Neighbors (KNN)** is a classic example. If a new student's data is plotted, the algorithm looks at the closest neighbors to determine whether the student will get placed or not based on majority voting.
+
+---
+
+## 2. Model-Based Learning
+
+### Phase 1: Training Phase
+
+```
+[ Training Data ] ──► [ Learning Algorithm ] ──► [ Optimized Parameters / Model Formula ]
+
+```
+
+### Phase 2: Prediction Phase
+
+```
+[ New Query Instance ] ──► [ Optimized Model Formula ] ──► [ Prediction / Output ]
+
+``` 
+
+
+### Brief Definition
+
+Model-Based Learning is an approach where the system tries to extract an underlying pattern, rule, or concept from the training data to build a predictive mathematical function (or decision boundary).
+
+### Key Points :
+
+* **Builds a Decision Boundary:** Instead of keeping the data points, the algorithm optimizes a set of mathematical parameters to draw a permanent boundary separating classes.
+* **Data-Independent Post Training:** Once the mathematical function (model) is built and saved, the training data can be completely deleted. Predictions depend entirely on the calculated formula.
+* **Examples Given:** Linear Regression, Logistic Regression, and Decision Trees are primary examples where relationships are reduced to equations or structured rules.
+
+
+## Key Differences Summary
+
+The lecture concludes with a direct comparison between the two approaches across several critical performance metrics:
+
+| Metric / Feature | Model-Based Learning | Instance-Based Learning |
+| --- | --- | --- |
+| **Primary Mechanism** | Extracts a generalized rule or formula. | Memorizes and holds onto individual instances. |
+| **Data Dependency** | Training data can be discarded after the model is trained. | Training data **must** be kept indefinitely to make predictions. |
+| **When Generalization Happens** | Before scoring; creates a global rule for all future incoming data. | Only at the moment of scoring; local rules adapt uniquely per query point. |
+| **Storage Requirements** | **Low Storage:** Only saves a few parameters or equations. | **High Storage:** Needs memory proportional to the size of the entire dataset. |
+| **Computation Speed** | Slow training phase, but extremely fast prediction phase. | No training phase (instant), but slower prediction phase due to distance calculations. |
+
+
+
+### Key Structural Difference
+
+* **Instance-Based:** $\text{New Data} \longrightarrow \text{All Training Data} \longrightarrow \text{Output}$
+* **Model-Based:** $\text{New Data} \longrightarrow \text{Mathematical Formula} \longrightarrow \text{Output}$
+
+<br>
+<br>
+
