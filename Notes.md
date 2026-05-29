@@ -474,3 +474,29 @@ Here are the basic features of Model Monitoring and Maintenance:
 * Update and retrain the model when accuracy drops
 * Maintain logs and alerts for real-time issues
 
+
+<br>
+<br>
+
+
+# Data Science and Machine learning JOB Roles -
+
+
+
+## 📊 Updated Data Job Roles & Market Comparison (2026)
+
+| Job Title | Analytical Skills | Business Acumen | Data Storytelling | Soft / Comm. Skills | Software Engg. / DSA | System Design / Cloud | **Average U.S. Base Salary (2026)** |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| **Data Analyst** | High | Medium to High | **Very High** *(Crucial)* | Medium to High | Low | None | **$84,000 – $90,000** |
+| **Data Engineer** | Medium | Low / Agnostic | None | Medium | **Very High** | **Very High** | **$137,000 – $185,000** |
+| **Data Scientist** | **Very High** | High | High | High | Medium | Low to Medium | **$112,000 – $128,000** |
+| **ML Engineer** | Medium to High | Medium | None | High | **Very High** | **Very High** | **$160,000 – $187,000** |
+
+---
+
+## 🔍 Key 2026 Market Context & Salary Factors
+
+* **The ML/AI Premium:** [Machine Learning Engineers](https://www.kore1.com/ml-engineer-salary-guide/) command the highest baseline packages. Because companies are rushing to put AI systems into actual software production, the demand for people who understand LLMOps, model deployment, and distributed computing has outpaced the general talent supply. Total compensation (including equity and bonuses) for senior ML Engineers at top-tier companies regularly pushes past **$350,000**.
+* **The Data Infrastructure Crux:** [Data Engineers](https://www.recruitingfromscratch.com/blog/data-engineer-salary-in-2026-real-data-from-200k-job-postings) continue to see incredibly stable, high compensation. Modern AI models are only as good as the data fed into them, meaning specialized "AI Data Engineers" who build real-time vector databases and low-latency streaming pipelines are highly valued.
+* **Data Scientist Evolution:** The role of the generalist Data Scientist has split. Those working primarily on traditional statistical business modeling sit around the mid-$120k base mark. However, those specializing in deep learning, Computer Vision, or NLP frequently jump into the ML Engineer tier or higher.
+* **Data Analyst Automation:** With modern AI tools drastically cutting down the manual time required to write SQL queries or clean data, [Data Analysts](https://builtin.com/salaries/us/data-analyst) are evaluated much more heavily on their **Business Intelligence (BI)** and **Data Storytelling** capabilities—translating data directly into revenue-generating strategies.
