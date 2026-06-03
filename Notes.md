@@ -500,3 +500,48 @@ Here are the basic features of Model Monitoring and Maintenance:
 * **The Data Infrastructure Crux:** [Data Engineers](https://www.recruitingfromscratch.com/blog/data-engineer-salary-in-2026-real-data-from-200k-job-postings) continue to see incredibly stable, high compensation. Modern AI models are only as good as the data fed into them, meaning specialized "AI Data Engineers" who build real-time vector databases and low-latency streaming pipelines are highly valued.
 * **Data Scientist Evolution:** The role of the generalist Data Scientist has split. Those working primarily on traditional statistical business modeling sit around the mid-$120k base mark. However, those specializing in deep learning, Computer Vision, or NLP frequently jump into the ML Engineer tier or higher.
 * **Data Analyst Automation:** With modern AI tools drastically cutting down the manual time required to write SQL queries or clean data, [Data Analysts](https://builtin.com/salaries/us/data-analyst) are evaluated much more heavily on their **Business Intelligence (BI)** and **Data Storytelling** capabilities—translating data directly into revenue-generating strategies.
+
+<br>
+<br>
+
+# What are Tensors ?
+
+* **Definition:** In its simplest form, a tensor is a **data structure** or a container used to store numbers. In computer science, it is synonymous with a multidimensional array ($N\text{-Dimensional Array}$).
+* **Importance:** Leading machine learning libraries like Scikit-Learn, TensorFlow, and PyTorch rely on tensors as their most basic building block to store and process data. In fact, Google’s top deep learning library, *TensorFlow*, derives its name directly from this concept.
+
+---
+
+### **Types of Tensors and Practical Examples**
+
+The number of dimensions a tensor has is referred to as its **Rank** or **Axis**. The video breaks down the types of tensors from 0D to 5D using real-world applications:
+
+* **0D Tensor (Scalar):** A single number containing no axes (e.g., `7` or `45`). Checking its dimension in NumPy returns `0`.
+* **1D Tensor (Vector):** An array or a single list of numbers with one axis.
+    * *Machine Learning Example:* In a student dataset with columns like [CGPA, IQ, State], the input data for a **single student** forms a 1D tensor.
+
+
+* **2D Tensor (Matrix):** A collection of vectors consisting of rows and columns (two axes).
+    * *Machine Learning Example:* An **entire tabular dataset** where rows represent multiple individual records (e.g., data for 10,000 students) and columns represent features.
+
+
+* **3D Tensor:** A collection of multiple 2D matrices layered together.
+    * *Machine Learning Examples:* 
+    1. **Natural Language Processing (NLP):** Text data converted into vectors where sentences form a matrix of word embeddings.
+    2. **Time Series Data:** Stock market data tracked over a timeline (e.g., tracking stock highs and lows daily over a 10-year span).
+
+
+* **4D Tensor:** A collection of multiple 3D tensors.
+    * *Machine Learning Example:* **Image datasets**. A single color image is a 3D tensor consisting of rows, columns, and 3 color channels (RGB). A batch containing multiple color images forms a 4D tensor.
+
+
+* **5D Tensor:** A collection of multiple 4D tensors.
+    * *Machine Learning Example:* **Video data**. Videos are essentially sequences of image frames playing rapidly over time. When processing a batch of multiple videos (Videos × Frames × Height × Width × Channels), the data structure escalates into a 5D tensor.
+
+
+
+---
+
+### **Core Properties: Shape and Size**
+
+* **Shape:** Dictates the exact number of elements available along each specific axis (e.g., a shape of `(2, 3)` means 2 rows and 3 columns).
+* **Size:** The total count of individual numbers inside a tensor. This is calculated by multiplying all the dimensions of its shape together. For example, a tensor with a shape of `(4, 3, 2)` holds a total size of 24 items.
