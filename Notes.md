@@ -508,9 +508,7 @@ Here are the basic features of Model Monitoring and Maintenance:
 
 * **Definition:** In its simplest form, a tensor is a **data structure** or a container used to store numbers. In computer science, it is synonymous with a multidimensional array ($N\text{-Dimensional Array}$).
 * **Importance:** Leading machine learning libraries like Scikit-Learn, TensorFlow, and PyTorch rely on tensors as their most basic building block to store and process data. In fact, Google’s top deep learning library, *TensorFlow*, derives its name directly from this concept.
-
----
-
+![alt text](64798tensor.jpg)
 ### **Types of Tensors and Practical Examples**
 
 The number of dimensions a tensor has is referred to as its **Rank** or **Axis**. The video breaks down the types of tensors from 0D to 5D using real-world applications:
