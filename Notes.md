@@ -543,3 +543,60 @@ The number of dimensions a tensor has is referred to as its **Rank** or **Axis**
 
 * **Shape:** Dictates the exact number of elements available along each specific axis (e.g., a shape of `(2, 3)` means 2 rows and 3 columns).
 * **Size:** The total count of individual numbers inside a tensor. This is calculated by multiplying all the dimensions of its shape together. For example, a tensor with a shape of `(4, 3, 2)` holds a total size of 24 items.
+
+<br>
+<br>
+
+# Business problem to ML Problem 
+
+## How to Frame a Machine Learning Problem Effectively
+
+This project guide outlines a systematic, 7-step framework for planning a Data Science project and converting a real-world business problem into a structured Machine Learning (ML) problem. 
+
+To illustrate the workflow, a practical case study of **Netflix Churn Rate Optimization** is used throughout the steps.
+
+---
+
+## The Core Philosophy
+To grow into a senior data scientist or leadership role, you cannot simply jump straight into writing code. Spending significant time upfront mapping out the problem architecture, planning data flows, and structuring the ML approach is the most critical skill for project su ccess.
+
+---
+
+## The 7-Step Problem Framing Framework
+
+### 1. Business Problem to ML Problem (Mathematical Problem)
+* **The Business Problem:** Netflix wants to increase its overall revenue.
+* **The ML Formulation:** Instead of spending heavily on acquiring new users, the strategy shifts to retaining existing users who are about to leave (reducing the churn rate). The broad business objective is converted into a concrete mathematical target: reducing the churn rate from 4% to 3.75%.
+
+### 2. Identifying the Type of Problem
+* While it initially looks like a binary classification problem (Will the user leave? Yes/No), framing it as a **Regression problem** offers a better business solution. 
+* By predicting a precise probability score (0 to 100%) of how likely a user is to leave, the business can offer dynamically customized discount rates depending on their exact likelihood of churning.
+
+### 3. Reviewing Existing Solutions
+* Before starting from scratch, always check if an existing baseline model or framework is already built within the organization. 
+* Reviewing past work helps gather inspiration, understand previously considered factors, and avoids wasting time reinventing the wheel.
+
+### 4. Identifying and Gathering Data
+* To predict user churn, you must identify relevant, measurable features. Key user behavior indicators include:
+  * Total watch time vs. browsing time.
+  * Search failures (how often a user searches for a title but doesn't find it).
+  * Completion rates (how frequently they stop a movie or show halfway through).
+* This step requires close collaboration with **Data Engineers** to extract these metrics from production databases and set up a structured data warehouse.
+
+### 5. Defining Success Metrics
+* You must define clear mathematical metrics to evaluate the model's success. 
+* This involves tracking the difference between your predicted churn probabilities and actual user churn over time. These metrics act as a "North Star" guiding the entire project team.
+
+### 6. Online vs. Batch Learning
+* **Online Learning:** The model continuously updates and learns on-the-go as live user data flows in. This is ideal for highly volatile data like streaming behavior.
+* **Batch Learning (Fallback):** If continuous online training is technically too complex or resource-heavy, a viable alternative is to train the model offline in batches (e.g., once every week) and deploy the updated version regularly.
+
+### 7. Validating Key Assumptions
+* Before deploying a model globally, you must rigorously test your core assumptions:
+  * Are the intended data features actually logged and available in the database?
+  * Will a model trained on data from users in one region (e.g., the US) perform equally well for users in another region (e.g., India), or does it require localized adjustments?
+
+---
+
+## References & Credits
+This framework is based on the "100 Days of Machine Learning" curriculum by **[CampusX](http://
