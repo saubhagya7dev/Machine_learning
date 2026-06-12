@@ -962,3 +962,75 @@ print("Dataset successfully saved as movies_dataset.csv!")
 
 <br>
 <br>
+
+# **DAY 19** 
+
+## UnderStanding  your Data 
+
+### 1. How big is the data?
+
+Understanding the shape (number of rows and columns) lets you know the scale of the data you are handling.
+
+```python
+df.shape
+```
+
+### 2. How does the data look like?
+
+Previewing rows gives you a feel for the data format. While `df.head()` gives the top rows, using `df.sample()` is a better strategy to avoid any layout bias present at the beginning or end of the file.
+
+```python
+# To view the first 5 rows
+df.head()
+
+# To view 5 random rows (recommended to avoid layout bias)
+df.sample(5)
+
+```
+
+### 3. What is the data type of each column?
+
+Checking data types helps identify numerical, categorical, or text (`object`) columns. It also helps with optimization, such as downcasting continuous columns stored unnecessarily as floats into integers to save memory.
+
+```python
+df.info()
+```
+
+### 4. Are there any missing values?
+
+Missing values can break machine learning models. This code tells you exactly how many missing values exist per column so you can plan whether to drop or impute them.
+
+```python
+df.isnull().sum()
+```
+
+### 5. How does the data look mathematically?
+
+This provides a high-level statistical overview of all numerical features, helping you instantly spot distributions, standard deviations, and any mathematical anomalies.
+
+```python
+df.describe()
+
+# Tip from comments: Use include="all" to see categorical stats as well
+df.describe(include="all")
+```
+
+### 6. Are there duplicate values?
+
+Duplicate entries introduce bias and reduce accuracy during model training. Checking for them lets you drop repetitive rows early on.
+
+```python
+df.duplicated().sum()
+```
+
+### 7. How is the correlation between the columns?
+
+Correlation reveals how features relate to each other and the target variable (on a scale from -1 to 1). Features with little to no correlation can often be dropped to streamline the model.
+
+```python
+# Note: In newer pandas versions, pass numeric_only=True to avoid errors with string data
+df.corr(numeric_only=True)
+
+# To check correlation specifically with a target variable (e.g., 'Survived')
+df.corr(numeric_only=True)['Survived']
+```
