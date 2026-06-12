@@ -945,3 +945,20 @@ print(f"Extraction Completed. Total dataset dimensions: {master_df.shape}")
 master_df.to_csv("movies_dataset.csv", index=False)
 print("Dataset successfully saved as movies_dataset.csv!")
 ```
+
+# **DAY 18**
+
+## It's really tough to Web scrape Data and present it as a data-frame 
+
+### instead use AI-Powered & Modern Web Data Collection Tools to do this job - 
+
+#### 1. [Firecrawl](https://www.firecrawl.dev?utm_source=chatgpt.com)
+#### 2. [Jina AI Reader](https://jina.ai/reader?utm_source=chatgpt.com)
+#### 3. [Apify](https://apify.com?utm_source=chatgpt.com)
+#### 4. [Bright Data](https://brightdata.com?utm_source=chatgpt.com)
+#### 5. [Browserbase](https://www.browserbase.com?utm_source=chatgpt.com)
+#### 6. [Crawl4AI](https://github.com/unclecode/crawl4ai?utm_source=chatgpt.com)
+#### 7. [LangChain Web Loaders](https://python.langchain.com?utm_source=chatgpt.com)
+
+<br>
+<br>
