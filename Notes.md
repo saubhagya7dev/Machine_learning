@@ -1,6 +1,6 @@
 ### **Artificial Intelligence (AI)**, **Machine Learning (ML)**, and **Deep Learning (DL)** are nested concepts. The easiest way to visualize their relationship is as a set of concentric circles: AI is the outermost umbrella, ML is a subset within AI, and DL is a deeper subset within ML.
 
-
+# **DAY 1**
 ## 1. Artificial Intelligence (AI)
 
 AI is the broadest discipline aimed at creating machines or systems capable of mimicking human intelligence to perform complex tasks, make decisions, or solve problems.
@@ -32,6 +32,8 @@ Deep Learning is a specialized subfield of Machine Learning that is structurally
 <br>
 <br>
 
+# **DAY 2**
+
 ## Quick Comparison Summary
 
 | Attribute | Artificial Intelligence (AI) | Machine Learning (ML) | Deep Learning (DL) |
@@ -45,6 +47,7 @@ Deep Learning is a specialized subfield of Machine Learning that is structurally
 <br>
 <br>
 
+# **DAY 3**
 
 # Types of Machine Learning 
 
@@ -75,6 +78,8 @@ Based on how much external human supervision the system receives during training
 <br>
 <br>
 
+# **DAY 4**
+
 # Offline Learning VS Online Learning
 
 ## Batch Learning (Offline Learning)
@@ -100,6 +105,10 @@ Based on how much external human supervision the system receives during training
 * **Slow Adaptation to Trends:** Because updates rely on a set schedule, the system cannot react to sudden real-time events or viral shifts instantly. By the time the next batch update runs, the trend may already be irrelevant `[00:09:39]`.
 
 ![alt text](1_DmOcKlevCbcNd4n4JBYtzQ.png)
+<br>
+<br>
+
+# **DAY 5**
 
 ## Online learning
 
@@ -163,6 +172,8 @@ You should opt for Online Learning under the following scenarios:
 
 <br>
 <br>
+
+# **DAY 6**
 
 # Instance-Based Vs Model-Based Learning
 ![alt text](1_esVJb_A1pD8FL4Ol4N7nCw@2x.jpg)
@@ -251,6 +262,8 @@ The lecture concludes with a direct comparison between the two approaches across
 <br>
 <br>
 
+# **DAY 7** 
+
 # Challenges In Machine learning - 
 ![alt text](0_4fmJ7BUeXBTiz42U.png)
 
@@ -309,6 +322,8 @@ The lecture concludes with a direct comparison between the two approaches across
 <br>
 <br>
 
+# **DAY 8**
+
 # Application of Machine Learning - 
 
 The primary objective of this lecture is to shift the perspective from standard consumer-facing applications **(Business-to-Consumer or B2C**, like YouTube or Amazon recommendations) toward **Business-to-Business (B2B)** applications, showing how machine learning (ML) acts as a backbone for industry profitability, operations, and strategic decision-making.
@@ -357,6 +372,8 @@ Platforms that harvest vast textual data leverage natural language processing to
 
 <br>
 <br>
+
+# **DAY 9**
 
 # Machine Learning Development Life Cycle - 
 
@@ -478,6 +495,8 @@ Here are the basic features of Model Monitoring and Maintenance:
 <br>
 <br>
 
+# **DAY 10**
+
 
 # Data Science and Machine learning JOB Roles -
 
@@ -503,6 +522,8 @@ Here are the basic features of Model Monitoring and Maintenance:
 
 <br>
 <br>
+
+# **DAY 11**
 
 # What are Tensors ?
 
@@ -547,7 +568,17 @@ The number of dimensions a tensor has is referred to as its **Rank** or **Axis**
 <br>
 <br>
 
-# Business problem to ML Problem 
+# **DAY 12**
+
+### it was all about setting up Anaconda for data science and kaggle for datasets retrival
+
+# **DAY 13**
+
+### made an End to End machine learning project to get an overview of what an actual process looks like to build an ML model from Scratch to Deployment
+
+# **DAY 14**
+
+# Framing Business problem to ML Problem 
 
 ## How to Frame a Machine Learning Problem Effectively
 
@@ -598,5 +629,319 @@ To grow into a senior data scientist or leadership role, you cannot simply jump 
 
 ---
 
-## References & Credits
-This framework is based on the "100 Days of Machine Learning" curriculum by **[CampusX](http://
+<br>
+<br>
+
+# **DAY 15**
+
+## Data Gathering processes - 
+1. Csv Files 
+2. Jason/SQL Files 
+3. Fetch API 
+4. WEB Scraping
+
+
+## Working With CSV FILES 
+
+### 1. Loading CSV Data (Local & Remote)
+
+You can load a CSV file directly from your local machine, or download and parse it directly from a web server URL using the `requests` library.
+
+* **Local:** Pass the relative or absolute file path.
+* **URL:** Fetch the text content using an API request and stream it into Pandas.
+
+```python
+import pandas as pd
+import requests
+import io
+
+# A. Loading locally [00:07:52]
+df_local = pd.read_csv('aug_train.csv')
+
+# B. Loading from a Server URL [00:08:33]
+url = "https://raw.githubusercontent.com/campusx-official/100-days-of-machine-learning/main/day15%20-%20working%20with%20csv%20files/aug_train.csv"
+headers = {"User-Agent": "Mozilla/5.0"}
+response = requests.get(url, headers=headers)
+df_url = pd.read_csv(io.StringIO(response.text))
+
+```
+
+---
+
+### 2. TSV FIELS - Handling Separators & Custom Column Names
+
+By default, `pd.read_csv()` looks for commas. If your data is Tab-Separated (`.tsv`) or uses a different delimiter, use the `sep` parameter. If the file lacks a header row, pass custom column names using `names` to prevent the first row of data from becoming the header [10:34](http://www.youtube.com/watch?v=a_XrmKlaGTs&t=634).
+
+```python
+# Reading a TSV file and manually providing column names [00:11:34]
+column_names = ['serial_no', 'movie_name', 'release_year', 'rating', 'votes', 'genres']
+df_tsv = pd.read_csv('movie_titles_metadata.tsv', sep='\t', names=column_names)
+
+```
+
+---
+
+### 3. Setting Index and Handling Misaligned Headers
+
+* **`index_col`:** Convert an existing data column (like an ID) into the row index [13:40](http://www.youtube.com/watch?v=a_XrmKlaGTs&t=820).
+* **`header`:** If a file contains blank rows or metadata at the top before the actual columns start, tell Pandas exactly which row to treat as the header [14:35](http://www.youtube.com/watch?v=a_XrmKlaGTs&t=875).
+
+```python
+# Convert 'enrollee_id' column to index [00:14:10]
+df_index = pd.read_csv('aug_train.csv', index_col='enrollee_id')
+
+# Specify that row 1 (instead of 0) contains the actual column names [00:15:13]
+df_header = pd.read_csv('test.csv', header=1)
+
+```
+
+---
+
+### 4. Memory Optimization (Selecting Specific Columns & Rows)
+
+When handling large datasets, loading every single column or millions of rows wastes RAM.
+
+* **`usecols`:** Only loads specified columns into memory [15:53](http://www.youtube.com/watch?v=a_XrmKlaGTs&t=953).
+* **`nrows`:** Limits the total number of rows imported [19:55](http://www.youtube.com/watch?v=a_XrmKlaGTs&t=1195).
+* **`skiprows`:** Skips specific row numbers or takes a custom filtering function [17:58](http://www.youtube.com/watch?v=a_XrmKlaGTs&t=1078).
+
+```python
+# Select only 3 specific columns [00:16:26]
+df_cols = pd.read_csv('aug_train.csv', usecols=['enrollee_id', 'gender', 'education_level'])
+
+# Limit import to the first 100 rows [00:20:02]
+df_rows = pd.read_csv('aug_train.csv', nrows=100)
+
+# Skip rows by index or custom rule [00:18:22]
+df_skipped = pd.read_csv('aug_train.csv', skiprows=[0, 2]) # skips row 0 and 2
+
+```
+
+---
+
+### 5. Fixing Encoding & Parsing Errors
+
+* **`encoding`:** If your data contains emojis or non-standard characters, it will throw a `UnicodeDecodeError`. Overriding the default `utf-8` encoding with formats like `latin-1` usually resolves it [20:47](http://www.youtube.com/watch?v=a_XrmKlaGTs&t=1247).
+* **`on_bad_lines`:** If some rows contain malformed data (e.g., 9 commas instead of 8), Pandas will crash. Setting this parameter skips those broken lines entirely [22:55](http://www.youtube.com/watch?v=a_XrmKlaGTs&t=1375).
+
+```python
+# Fix encoding issues with 'latin-1' [00:22:18]
+df_encoded = pd.read_csv('zomato.csv', encoding='latin-1')
+
+# Skip malformed/broken lines instead of crashing [00:24:05]
+df_cleaned = pd.read_csv('books.csv', sep=';', encoding='latin-1', on_bad_lines='skip')
+
+```
+
+---
+
+### 6. Managing Datatypes, Custom Conversions, & Dates
+
+* **`dtype`:** Cast column data types during the import step to save memory (e.g., converting a float to an integer) [24:45](http://www.youtube.com/watch?v=a_XrmKlaGTs&t=1485).
+* **`parse_dates`:** Ensures date columns are read as real datetime objects instead of flat strings [26:41](http://www.youtube.com/watch?v=a_XrmKlaGTs&t=1601).
+* **`converters`:** Allows you to instantly apply a custom python function to transform a column's values on the fly [29:30](http://www.youtube.com/watch?v=a_XrmKlaGTs&t=1770).
+
+```python
+# 1. Force a datatype conversion [00:26:03]
+df_dtype = pd.read_csv('aug_train.csv', dtype={'target': int})
+
+# 2. Automatically parse columns into datetime objects [00:27:44]
+df_dates = pd.read_csv('IPL Matches 2008-2020.csv', parse_dates=['date'])
+
+# 3. Transform column values on import using a converter function [00:31:06]
+def short_team_name(name):
+    if name == "Royal Challenge Bangalore":
+        return "RCB"
+    return name
+
+df_converted = pd.read_csv('IPL Matches 2008-2020.csv', converters={'team1': short_team_name})
+
+```
+
+---
+
+### 7. Custom Null Values & Chunking Massive Datasets
+
+* **`na_values`:** If your dataset uses unique placeholders for missing values (like hyphens `-` or specific text strings) that Pandas doesn't recognize natively, pass them into a list to explicitly treat them as `NaN` values [31:39](http://www.youtube.com/watch?v=a_XrmKlaGTs&t=1899).
+* **`chunksize`:** For massive datasets that exceed your computer's RAM, you can load your CSV iteratively in blocks (chunks) using a loop [33:39](http://www.youtube.com/watch?v=a_XrmKlaGTs&t=2019).
+
+## Summary 
+
+Here is a ultra-brief summary of the most common CSV techniques in Pandas, mapping the code directly to how it works:
+
+### 1. Basic Ingestion
+
+* **Code:** `df = pd.read_csv('file.csv')`
+* **Working:** Loads a standard comma-separated file into a DataFrame.
+
+### 2. Custom Delimiter
+
+* **Code:** `df = pd.read_csv('file.tsv', sep='\t')`
+* **Working:** Handles non-comma files (like tab `\t` or semicolon `;` separated data).
+
+### 3. Column Selection (Memory Saving)
+
+* **Code:** `df = pd.read_csv('file.csv', usecols=['Age', 'Salary'])`
+* **Working:** Only loads specified columns into RAM, ignoring the rest.
+
+### 4. Row Limitation (Quick Testing)
+
+* **Code:** `df = pd.read_csv('file.csv', nrows=100)`
+* **Working:** Restricts the import to the first $N$ rows ($N=100$ here) to quickly inspect large datasets.
+
+### 5. Fixing Special Characters
+
+* **Code:** `df = pd.read_csv('file.csv', encoding='latin-1')`
+* **Working:** Prevents crashes (`UnicodeDecodeError`) when files contain emojis or non-standard characters.
+
+### 6. Correcting Datatypes
+
+* **Code:** `df = pd.read_csv('file.csv', dtype={'ID': int})`
+* **Working:** Forces Pandas to interpret a specific column as a chosen datatype on import.
+
+### 7. Native Date Parsing
+
+* **Code:** `df = pd.read_csv('file.csv', parse_dates=['Date_Column'])`
+* **Working:** Automatically converts flat text/strings into true Python datetime objects.
+
+### 8. Processing Massive Files (Chunking)
+
+* **Code:** ```python
+for chunk in 
+`pd.read_csv('huge.csv', chunksize=5000):`
+process(chunk)
+
+
+* **Working:** Breaks down files larger than your computer's RAM into manageable slices ($5000$ rows each) to loop through them sequentially.
+
+<br>
+<br>
+
+
+# **DAY 16**
+
+
+## Working with JSON/SQL files 
+
+Here is a very brief summary of the core techniques used to process JSON and SQL data for machine learning workflows:
+
+### 1. Handling JSON Files (Semi-Structured Data)
+
+JSON is widely used for web APIs and nested data. The main challenge in ML is that it isn’t flat like a spreadsheet.
+
+* **Direct Parsing:** Using Pandas (`pd.read_json()`) to instantly convert simple, flat JSON arrays into DataFrames.
+* **Flattening / Normalization:** Real-world JSON often contains nested dictionaries or lists. Techniques like `pd.json_normalize()` are used to unpack these hierarchies into a flat tabular format (rows and columns) that ML algorithms can read.
+* **Chunking:** For massive JSON files that cause memory errors, the data is streamed or read in batches using the `chunksize` parameter.
+
+### 2. Handling SQL Files (Structured Relational Data)
+
+Relational databases store structured, enterprise-level data. The goal is to safely query and extract exactly what you need.
+
+* **Database Connectors:** Establishing a secure bridge between Python and the database engine using dedicated libraries (e.g., `mysql-connector-python`, `psycopg2` for PostgreSQL, or `sqlite3`).
+* **In-Memory Querying:** Using Pandas (`pd.read_sql_query()`) to execute standard SQL commands directly inside Python. This allows you to filter (`WHERE`), aggregate (`GROUP BY`), or join tables *before* bringing the data into memory.
+* **Batch Processing:** Like JSON, if a SQL table contains millions of rows, data scientists pull data sequentially in chunks or use specialized big-data frameworks (like PySpark) to prevent system crashes.
+<br>
+<br>
+
+# **DAY 17**
+
+
+To implement this workflow, you need the standard built-in `requests` library to manage HTTP handshakes and `pandas` for structural data wrangling.
+
+### Step 1: Fetching and Structuring a Single Page of Data
+
+Before scaling up with a loop, test your setup by pulling the first batch (Page 1) of top-rated movies [09:25](http://www.youtube.com/watch?v=roTZJaxjnJc&t=565):
+
+```python
+import pandas as pd
+import requests
+
+# Set your target API endpoint and append your personal TMDb API key
+# Replace 'YOUR_API_KEY_HERE' with your real API credential from TMDb
+api_key = "YOUR_API_KEY_HERE"
+url = f"https://api.themoviedb.org/3/movie/top_rated?api_key={api_key}&language=en-US&page=1"
+
+# Step A: Perform an HTTP GET request to pull the data
+response = requests.get(url)
+
+# Step B: Parse the incoming text directly into JSON/Python Dictionary format
+data_json = response.json()
+
+# Step C: Isolate the nested list under 'results' and wrap it into a DataFrame
+df_page1 = pd.DataFrame(data_json["results"])[
+    [
+        "id",
+        "title",
+        "release_date",
+        "overview",
+        "popularity",
+        "vote_average",
+        "vote_count",
+    ]
+]
+
+# Quick check on the structural shape of your targeted DataFrame
+print(df_page1.head())
+
+```
+
+---
+
+### Step 2: Full Scaled Automation (Looping Over All Pages)
+
+Once the single-page logic runs successfully, implement a robust loop that walks across all 428 structural data pages from the TMDb server [11:34](http://www.youtube.com/watch?v=roTZJaxjnJc&t=694), [17:13](http://www.youtube.com/watch?v=roTZJaxjnJc&t=1033). This compiles a unified master dataframe comprising over 8,500 movies [19:38](http://www.youtube.com/watch?v=roTZJaxjnJc&t=1178):
+
+```python
+import pandas as pd
+import requests
+
+api_key = "YOUR_API_KEY_HERE"
+
+# Initialize an empty master DataFrame to house your incoming datasets
+master_df = pd.DataFrame()
+
+# TMDb features 428 total pages of top-rated items.
+# We loop from 1 to 428 (remember python range boundaries exclude the end number).
+for page_num in range(1, 429):
+    # Dynamically inject the page number directly into your request string
+    paginated_url = f"https://api.themoviedb.org/3/movie/top_rated?api_key={api_key}&language=en-US&page={page_num}"
+
+    try:
+        response = requests.get(paginated_url)
+
+        # Confirm HTTP response status is optimal (200 means success)
+        if response.status_code == 200:
+            page_json = response.json()
+
+            # Create a temporary dataframe focusing strictly on the current page records
+            temp_df = pd.DataFrame(page_json["results"])[
+                [
+                    "id",
+                    "title",
+                    "release_date",
+                    "overview",
+                    "popularity",
+                    "vote_average",
+                    "vote_count",
+                ]
+            ]
+
+            # Append the current page to your master sheet.
+            # ignore_index=True dynamically sequences indices continuously (e.g., 1-8500+)
+            master_df = pd.concat([master_df, temp_df], ignore_index=True)
+        else:
+            print(
+                f"Skipping page {page_num}: Received Status Code {response.status_code}"
+            )
+
+    except Exception as e:
+        print(f"An error occurred on page {page_num}: {e}")
+        continue
+
+# Check your ultimate matrix structural shape
+print(f"Extraction Completed. Total dataset dimensions: {master_df.shape}")
+
+# Export your freshly baked dataset seamlessly into a raw CSV document
+master_df.to_csv("movies_dataset.csv", index=False)
+print("Dataset successfully saved as movies_dataset.csv!")
+```
