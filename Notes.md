@@ -1034,3 +1034,10 @@ df.corr(numeric_only=True)
 # To check correlation specifically with a target variable (e.g., 'Survived')
 df.corr(numeric_only=True)['Survived']
 ```
+
+<br>
+<br>
+
+# **DAY 20** 
+
+
