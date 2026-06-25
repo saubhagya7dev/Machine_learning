@@ -1041,3 +1041,31 @@ df.corr(numeric_only=True)['Survived']
 # **DAY 20** 
 
 
+## EDA using Univariate Analysis
+
+This lecture covers the fundamentals of **Exploratory Data Analysis (EDA)** focusing on **Univariate Analysis**, which means analyzing a single variable (column) at a time to uncover trends, distributions, and shapes without looking at relationships between different variables.
+
+Data is primarily divided into two main types:
+
+* **Categorical Data:** Represents groups or categories (e.g., Survival status, Passenger Class, Gender, Embarked Station).
+* **Numerical Data:** Continuous or discrete numbers (e.g., Age, Fare).
+
+---
+
+
+### 1. Analyzing Categorical Data
+
+The instructor demonstrates two main ways to visualize categorical features using the `Seaborn` and `Matplotlib` libraries 
+
+* **Countplot / Bar Chart:** Tells you the exact frequency of each category (e.g., showing that class 3 had the highest passenger count and more people died than survived)
+* **Pie Chart:** Useful when you want to look at the relative distribution in terms of percentages (e.g., ~61% of passengers died, and ~65% of the passengers were male)
+
+### 2. Analyzing Numerical Data
+
+Numerical data is continuous, so instead of counting exact matches, we study its distribution and mathematical summary.
+
+* **Histogram / Distplot:** Divides the range of continuous values into intervals ("bins") to map the data's shape. The curve overlaid by `distplot` is the **Probability Density Function (PDF)**, which displays the likelihood of data points falling across the range and helps determine if data is symmetrical or skewed.
+* **Distribution Plots (Distplot / KDE):** Incorporates *Kernel Density Estimation (KDE)* to generate a continuous curve, turning frequency counts into a Probability Density Function (PDF). This also reveals data **skewness** (whether the data peaks centrally or leans left/right)
+* **Box Plot:** Provides a **Five-Number Summary** (Minimum, 25th percentile $Q_1$, Median, 75th percentile $Q_3$, and Maximum). It is exceptionally useful for detecting potential **outliers** in your dataset.
+* **Descriptive Statistics:** Functions like `.mean()`, `.median()`, `.min()`, `.max()`, and `.skew()` to mathematically understand the central tendency and asymmetry.
+--- 
