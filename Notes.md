@@ -1107,3 +1107,28 @@ Numerical data is continuous, so instead of counting exact matches, we study its
 
 <br>
 <br>
+
+# **DAY 22**
+
+## **Pandas Profiling** (now updated and maintained as `ydata-profiling`), a highly efficient tool designed to automate exploratory data analysis (EDA).
+
+### Key Takeaways from the Video
+
+* **Automation of EDA:** While manual analysis involves checking shape, variables, and plotting custom graphs, Pandas Profiling automates most of these heavy-lifting tasks with just a few lines of code.
+* **Implementation Steps:** 1. Install the library via pip.
+2. Import `ProfileReport` from the library.
+3. Initialize it using your DataFrame and export the results to an interactive HTML file.
+* **The Generated Report Sections:** The resulting HTML report simplifies dataset evaluation by dividing the data into five main components.
+* **Overview:** Summarizes basic dataset statistics including row/column counts, missing cell percentages, duplicate values, and dataset memory footprint.
+* **Variables:** Performs automated univariate analysis. It plots categorical charts or numerical histograms and details value distributions, minimums, maximums, and extreme values/outliers.
+* **Interactions:** Handles bivariate and multivariate analysis by generating scatter plots to compare relationships between pairs of variables.
+* **Correlations:** Offers a quick matrix visualization (like Pearson correlation) to show linear dependencies between features.
+* **Missing Values & Samples:** Displays visualization maps (counts, matrix, dendrograms) pinpointing exact distributions of missing data, followed by previewing first and last sample rows.
+
+
+
+The instructor notes that running this profile report is an excellent first step whenever starting any brand-new data science project.
+
+<br>
+<br>
+
