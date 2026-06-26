@@ -1231,3 +1231,93 @@ print("\Scaled Std Dev:\n", X_train_scaled.std().round(2))
 
 ```
 
+# **DAY 25**
+
+## Normalization 
+Normalization is a critical data preparation technique used in machine learning to change the values of numeric columns to a common scale without distorting differences in ranges or losing information. It is primarily used to eliminate the impact of units and magnitudes, allowing algorithms to perform better.
+
+### When to Use What:
+
+* **Standardization** generally yields better results for most machine learning problems and is used by default.
+* **MinMax Scaling** is highly recommended when you know the definitive minimum and maximum bounds of your data beforehand (e.g., Image Processing where pixel values range strictly between **0** and **255**).
+* **Robust Scaling** should be preferred if your dataset contains a large number of outliers.
+* **MaxAbs Scaling** is ideal for sparse datasets containing a high amount of zeros.
+
+---
+
+## 🧮 Mathematical Formulas
+
+### 1. MinMax Scaling (Normalization)
+
+Scales the data strictly between a range of **0** and **1**.
+
+
+$$X' = \frac{X - X_{min}}{X_{max} - X_{min}}$$
+
+### 2. Mean Normalization
+
+Centers the data around the mean, scaling it typically between **-1** and **1**.
+
+
+$$X' = \frac{X - X_{mean}}{X_{max} - X_{min}}$$
+
+
+*(Note: Scikit-Learn does not have a built-in class for Mean Normalization, so it must be coded manually)*
+
+### 3. MaxAbs Scaling
+
+Scales data by dividing by the maximum absolute value. Ideal for preserving sparsity.
+
+
+$$X' = \frac{X}{|X_{max}|}$$
+
+### 4. Robust Scaling
+
+Uses the median and Interquartile Range ($IQR$), making it robust to outliers.
+$$X' = \frac{X - X_{median}}{IQR} = \frac{X - X_{median}}{Q_3 (75th\%) - Q_1 (25th\%)} $$
+---
+
+## 💻 Code Implementation
+
+Here is how you can implement **MinMax Scaling**, **MaxAbs Scaling**, and **Robust Scaling** using Python's `scikit-learn` library:
+
+```python
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import MinMaxScaler, MaxAbsScaler, RobustScaler
+
+# 1. Load your dataset
+# df = pd.read_csv('your_data.csv')
+# X = df[['feature1', 'feature2']]
+# y = df['target']
+
+# 2. Always split into training and testing sets first!
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# =====================================================================
+# APPROACH A: MinMax Scaling (Most Common)
+# =====================================================================
+min_max_scaler = MinMaxScaler()
+
+# Fit only on training data, but transform both train and test sets
+X_train_minmax = min_max_scaler.fit_transform(X_train)
+X_test_minmax = min_max_scaler.transform(X_test)
+
+# =====================================================================
+# APPROACH B: MaxAbs Scaling (For Sparse Data)
+# =====================================================================
+max_abs_scaler = MaxAbsScaler()
+X_train_maxabs = max_abs_scaler.fit_transform(X_train)
+X_test_maxabs = max_abs_scaler.transform(X_test)
+
+# =====================================================================
+# APPROACH C: Robust Scaling (For Outlier-Heavy Data)
+# =====================================================================
+robust_scaler = RobustScaler()
+X_train_robust = robust_scaler.fit_transform(X_train)
+X_test_robust = robust_scaler.transform(X_test)
+
+# Note: Scikit-learn outputs NumPy arrays. Convert back to DataFrame if needed:
+# X_train_scaled_df = pd.DataFrame(X_train_minmax, columns=X_train.columns)
+
+```
