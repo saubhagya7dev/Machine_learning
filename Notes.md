@@ -1068,4 +1068,42 @@ Numerical data is continuous, so instead of counting exact matches, we study its
 * **Distribution Plots (Distplot / KDE):** Incorporates *Kernel Density Estimation (KDE)* to generate a continuous curve, turning frequency counts into a Probability Density Function (PDF). This also reveals data **skewness** (whether the data peaks centrally or leans left/right)
 * **Box Plot:** Provides a **Five-Number Summary** (Minimum, 25th percentile $Q_1$, Median, 75th percentile $Q_3$, and Maximum). It is exceptionally useful for detecting potential **outliers** in your dataset.
 * **Descriptive Statistics:** Functions like `.mean()`, `.median()`, `.min()`, `.max()`, and `.skew()` to mathematically understand the central tendency and asymmetry.
---- 
+
+<BR>
+<BR>
+
+
+# **DAY 21**
+## EDA using Bivariate and Multivariate Analysis.
+
+### Key Visualization Techniques & Tools Covered
+
+### 1. Numerical to Numerical Variables
+
+* **Scatter Plot:** Used to analyze the relationship between two numerical columns. Using the `tips` dataset, the instructor plots `total_bill` vs `tip` to showcase a clear linear relationship.
+* **Multivariate Expansion:** Demonstrates how to upgrade a bivariate scatter plot into multivariate analysis using additional parameters in Seaborn.
+* `hue`: Adds a categorical dimension (e.g., color-coding by Gender).
+* `style`: Encodes another category using markers (e.g., differentiating Smoker vs Non-smoker with dots and crosses).
+* `size`: Introduces a numerical scale through marker size (e.g., party Size).
+
+
+
+### 2. Numerical to Categorical Variables
+
+* **Bar Plot:** Ideal for examining an average numerical metric across categories. For example, visualizing the average passenger age or ticket fare (`fare`) across different passenger classes (`Pclass`) in the `titanic` dataset.
+* **Box Plot:** Used to visualize the five-number summary and identify outliers across categories (e.g., comparing the age distribution of males vs females, layered with survival status using `hue`).
+* **Distplot / KDE Plot:** Shows how the probability density function (PDF) changes for different categories. By overlaying the age distributions of those who survived versus those who died, the instructor highlights clear data stories—such as children having a higher probability of survival.
+
+### 3. Categorical to Categorical Variables
+
+* **Cross-tabulation & Heatmaps:** Utilizing `pd.crosstab()` to create contingency tables (e.g., the number of people who survived/died per passenger class) and passing them into Seaborn's `heatmap` to visually isolate high-density clusters instantly.
+* **Pandas GroupBy (Aggregations):** Grouping data to calculate precise survival percentages across categories (e.g., sex, embarkation ports) and visualizing them using bar charts.
+* **Cluster Map:** Generates a heatmap alongside tree-like diagrams called dendrograms to automatically capture and group structurally similar hierarchical relationships in categorical data.
+
+### 4. Special Multi-Variable & Time Plots
+
+* **Pair Plot:** Automatically detects all numerical columns in a dataset (like `iris`) and creates a matrix of scatter plots for every combination, alongside histograms for self-correlations. It is highly effective for getting a quick bird's-eye view of multi-dimensional data.
+* **Line Plot:** A specialized variation of a scatter plot used specifically when the x-axis contains time-series or sequential tracking tracking information (e.g., plotting yearly passenger growth using the `flights` dataset).
+
+<br>
+<br>
