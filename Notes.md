@@ -1157,3 +1157,77 @@ This process targets identifying and keeping only the most important features wh
 ### 4. Feature Extraction
 
 Unlike feature construction, feature extraction programmatically projects or transforms high-dimensional data into a completely new, lower-dimensional set of features  This is often used for highly dimensional datasets using specialized algorithms like Principal Component Analysis (PCA) or Linear Discriminant Analysis (LDA) 
+
+
+<br>
+<br>
+
+# **DAY 24**
+
+## Feature Scaling & Standardization?
+
+* **Feature Scaling:** This is a technique used to bring independent features of a dataset into a fixed or similar range. It is typically the final step of feature engineering, performed just before feeding data into a machine learning model.
+* **Why we need it:** Algorithms that rely on distances (like K-Nearest Neighbors) or optimization techniques (like Gradient Descent in Logistic Regression and Neural Networks) perform poorly if one feature has a vastly larger scale than another (e.g., Age vs. Salary). The larger scale feature will mathematically dominate the model's logic.
+* **Standardization (Z-score Normalization):** This transforms the data so that it ends up centered around a **Mean ($\mu$) of 0** and a **Standard Deviation ($\sigma$) of 1**.
+* **Important Caveats:**
+* **Distribution Shape:** Standardization changes the *scale* of the data, but it does **not** alter the underlying shape of the distribution.
+* **Outliers:** It does **not** handle or minimize the relative impact of outliers. Outliers will remain outliers after being scaled.
+* **When to use:** Use it for KNN, PCA, Logistic Regression, Linear Regression, and Deep Learning. You do **not** need it for tree-based models like Decision Trees, Random Forests, or Gradient Boosting.
+
+
+
+---
+
+## 2. Mathematical Formula
+
+To standardize a specific value $x_i$ in a feature column, you subtract the mean ($\bar{x}$ or $\mu$) of that column and divide it by its standard deviation ($\sigma$):
+
+$$x_i' = \frac{x_i - \mu}{\sigma}$$
+
+Where:
+
+* $x_i'$ = The newly scaled, standardized value.
+* $x_i$ = The original raw value.
+* $\mu$ = The mean of the feature column.
+* $\sigma$ = The standard deviation of the feature column.
+
+---
+
+## 3. Scikit-Learn Code Implementation
+
+Always perform your **Train-Test Split before scaling** to prevent data leakage. You `fit` the scaler only on the training data, but you `transform` both the training and testing sets.
+
+```python
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+
+# 1. Assume 'df' is your DataFrame with features and target
+# Let's say columns are ['Age', 'EstimatedSalary'] and target is 'Purchased'
+X = df[['Age', 'EstimatedSalary']]
+y = df['Purchased']
+
+# 2. Train-Test Split (Crucial step before scaling)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+# 3. Initialize the StandardScaler
+scaler = StandardScaler()
+
+# 4. Fit the scaler on the training data (learns the mean and standard deviation)
+scaler.fit(X_train)
+
+# 5. Transform both the training and test datasets
+X_train_scaled = scaler.transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+
+# Note: StandardScaler returns NumPy arrays. 
+# Optional: Convert back to DataFrame to preserve column names for visualization
+X_train_scaled = pd.DataFrame(X_train_scaled, columns=X_train.columns)
+X_test_scaled = pd.DataFrame(X_test_scaled, columns=X_test.columns)
+
+# Verify the scaling effect: Mean should be ~0 and Standard Deviation should be ~1
+print("Scaled Mean:\n", X_train_scaled.mean().round(2))
+print("\Scaled Std Dev:\n", X_train_scaled.std().round(2))
+
+```
+
