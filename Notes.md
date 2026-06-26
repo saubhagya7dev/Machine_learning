@@ -1132,3 +1132,28 @@ The instructor notes that running this profile report is an excellent first step
 <br>
 <br>
 
+# **DAY 23**
+
+# introduction to **Feature Engineering**, 
+## which is the process of using domain knowledge to extract or transform features from raw data to improve the performance of machine learning algorithms.
+
+## Feature engineering into four core pillars:
+
+### 1. Feature Transformation
+This involves converting an existing feature into a form that is better suited for a machine learning model. Key techniques include:
+
+* **Missing Value Imputation:** Handling missing data points by either removing them or filling them in using methods like mean, median, or mode.
+* **Handling Categorical Values:** Converting string or categorical variables into numerical values (e.g., using One-Hot Encoding) so that frameworks like scikit-learn can process them .
+* **Outlier Detection:** Identifying and removing extreme values that can disproportionately skew the training behavior of algorithms like linear regression .
+* **Feature Scaling:** Bringing numerical features with different scales (e.g., age vs. salary) into a uniform range to prevent distance-based models from being dominated by a single variable.
+
+### 2. Feature Construction
+This is the manual creation of completely new features from existing data, heavily relying on your intuition, domain knowledge, and experience. For example, in the Titanic dataset, combining the separate features `SibSp` (siblings/spouses) and `Parch` (parents/children) into a single unified feature called `Family_Size` .
+
+### 3. Feature Selection 
+
+This process targets identifying and keeping only the most important features while filtering out redundant or irrelevant ones . Using datasets like MNIST as an example, selecting only the central pixels where digits are drawn significantly improves model speed and efficiency by reducing input dimensions 
+
+### 4. Feature Extraction
+
+Unlike feature construction, feature extraction programmatically projects or transforms high-dimensional data into a completely new, lower-dimensional set of features  This is often used for highly dimensional datasets using specialized algorithms like Principal Component Analysis (PCA) or Linear Discriminant Analysis (LDA) 
