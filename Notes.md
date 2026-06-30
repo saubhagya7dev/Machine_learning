@@ -1321,3 +1321,46 @@ X_test_robust = robust_scaler.transform(X_test)
 # X_train_scaled_df = pd.DataFrame(X_train_minmax, columns=X_train.columns)
 
 ```
+
+# **DAY 26**
+
+### Feature Engineering Framework
+
+Encoding categorical data is a critical sub-type of **Feature Transformation** within the larger machine learning pipeline of Feature Engineering. Since machine learning algorithms explicitly require numbers rather than strings, data scientists must encode text categories into a numerical format.
+
+---
+
+### Classification of Categorical Data
+
+Categorical data is split into two primary types:
+
+* **Nominal Data:** Categories have no inherent order or relationship to one another (e.g., States, Engineering Branches, or Gender). This is typically encoded using **One-Hot Encoding**.
+* **Ordinal Data:** Categories have a strict, sequential order or relative relationship (e.g., School grades, Customer Reviews like *Poor < Average < Good*, or Education levels like *High School < Undergrad < Postgrad*). This is handled using **Ordinal Encoding**.
+
+---
+
+### Ordinal Encoding vs. Label Encoding
+
+A critical insight shared in the video is distinguishing when to use specific Scikit-Learn tools, avoiding a common mistake made by many practitioners:
+
+| Encoding Type | Application Target | Description |
+| --- | --- | --- |
+| **Ordinal Encoder** | **Input Features ($X$)** | Used when the independent/input variables contain ordinal categories. You must manually pass the intended order format to the `categories` hyperparameter so Scikit-Learn knows the rank. |
+| **Label Encoder** | **Output Target ($y$)** | Specifically designed by Scikit-Learn to encode target labels for classification problems. It automatically maps the classes to numbers (between $0$ and $\text{classes}-1$) and should **never** be used on input features ($X$). |
+
+---
+
+### Implementation Workflow
+
+The practical coding walkthrough follows these steps:
+
+1. **Train-Test Split:** Always separate your data into training and testing sets before doing feature transformations to prevent data leakage.
+2. **Ordinal Encoding ($X$):** The `OrdinalEncoder` class is instantiated with a list of ordered categories matching the rank hierarchy (e.g., mapping `['Poor', 'Average', 'Good']` to sequential integers). It is then applied using `.fit()` on the training set and `.transform()` on both training and test sets.
+3. **Label Encoding ($y$):** The `LabelEncoder` is instantiated without parameters (as target class ranking is determined internally or randomly) to transform the target prediction column (e.g., turning a `Purchased` status of `Yes`/`No` into `1`/`0`).
+
+
+<br>
+<br>
+
+
+# **DAY 27**
