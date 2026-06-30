@@ -627,7 +627,6 @@ To grow into a senior data scientist or leadership role, you cannot simply jump 
   * Are the intended data features actually logged and available in the database?
   * Will a model trained on data from users in one region (e.g., the US) perform equally well for users in another region (e.g., India), or does it require localized adjustments?
 
----
 
 <br>
 <br>
@@ -1228,8 +1227,11 @@ X_test_scaled = pd.DataFrame(X_test_scaled, columns=X_test.columns)
 # Verify the scaling effect: Mean should be ~0 and Standard Deviation should be ~1
 print("Scaled Mean:\n", X_train_scaled.mean().round(2))
 print("\Scaled Std Dev:\n", X_train_scaled.std().round(2))
-
 ```
+
+<br>
+<br>
+
 
 # **DAY 25**
 
@@ -1463,3 +1465,196 @@ print("Preprocessed Training Shape:", X_train_transformed.shape)
 
 * **`remainder='passthrough'`**: This argument ensures that columns requiring absolutely no transformations (such as `age` in this specific video) are kept in the final array instead of being dropped by default.
 * **Modernizing Syntax**: Note that newer versions of Scikit-Learn have replaced the `sparse` parameter with `sparse_output=False` inside the `OneHotEncoder` setup to reliably yield dense matrix instances.
+
+# **DAY 29**
+
+## **Machine Learning PIPELINES**
+
+Here is a complete summary of the video from [CampusX](https://www.youtube.com/watch?v=xOccYkgRV4Q) along with the code implementations shown in both approaches.
+
+---
+
+## 📌 Video Summary
+
+The video explains **Scikit-Learn Pipelines**, demonstrating how they chain together multiple data preprocessing and modeling steps so that the output of each step serves as the input to the next [00:50](http://www.youtube.com/watch?v=xOccYkgRV4Q&t=50).
+
+The instructor showcases two workflows on the Titanic dataset:
+
+1. **Without Pipelines:** Preprocessing steps like missing value imputation (`SimpleImputer`) and categorical encoding (`OneHotEncoder`) are done manually [07:17](http://www.youtube.com/watch?v=xOccYkgRV4Q&t=437), [08:49](http://www.youtube.com/watch?v=xOccYkgRV4Q&t=529). While training is straightforward, executing this on new test data for a production deployment requires copying and tracking all individual preprocessing steps in the exact sequence, creating highly fragile code [13:28](http://www.youtube.com/watch?v=xOccYkgRV4Q&t=808), [19:39](http://www.youtube.com/watch?v=xOccYkgRV4Q&t=1179).
+2. **With Pipelines:** All steps—Imputation, Encoding, Feature Scaling, Feature Selection, and Model Training—are unified into a single Scikit-Learn `Pipeline` object [23:38](http://www.youtube.com/watch?v=xOccYkgRV4Q&t=1418). When exporting the model via `pickle`, only the unified pipeline object needs to be saved [41:55](http://www.youtube.com/watch?v=xOccYkgRV4Q&t=2515). New production inputs can be processed and predicted with a single `.predict()` call, without changing any client-side code [43:05](http://www.youtube.com/watch?v=xOccYkgRV4Q&t=2585).
+
+---
+
+## 🛠️ Code Implementation
+
+## Approach 1: **Without Pipelines** (The Hard Way)
+
+### 1. **Aam Zindagi** -  Training & Exporting 
+
+```python
+import pandas as pd
+import numpy as np
+import pickle
+from sklearn.model_selection import train_test_split
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score
+
+# Load and drop unnecessary columns
+df = pd.read_csv('titanic.csv')
+df.drop(columns=['PassengerId', 'Name', 'Ticket', 'Cabin'], inplace=True)
+
+# Train Test Split
+X_train, X_test, y_train, y_test = train_test_split(
+    df.drop(columns=['Survived']), df['Survived'], test_size=0.2, random_state=42
+)
+
+# Imputation
+si_age = SimpleImputer()
+si_embarked = SimpleImputer(strategy='most_frequent')
+
+X_train_age = si_age.fit_transform(X_train[['Age']])
+X_train_embarked = si_embarked.fit_transform(X_train[['Embarked']])
+
+X_test_age = si_age.transform(X_test[['Age']])
+X_test_embarked = si_embarked.transform(X_test[['Embarked']])
+
+# One Hot Encoding
+ohe_sex = OneHotEncoder(sparse_output=False, handle_unknown='ignore')
+ohe_embarked = OneHotEncoder(sparse_output=False, handle_unknown='ignore')
+
+X_train_sex = ohe_sex.fit_transform(X_train[['Sex']])
+X_train_embarked = ohe_embarked.fit_transform(X_train_embarked)
+
+X_test_sex = ohe_sex.transform(X_test[['Sex']])
+X_test_embarked = ohe_embarked.transform(X_test_embarked)
+
+# Concatenate remaining features back together
+X_train_rem = X_train.drop(columns=['Sex', 'Age', 'Embarked']).values
+X_test_rem = X_test.drop(columns=['Sex', 'Age', 'Embarked']).values
+
+X_train_transformed = np.concatenate([X_train_rem, X_train_age, X_train_sex, X_train_embarked], axis=1)
+X_test_transformed = np.concatenate([X_test_rem, X_test_age, X_test_sex, X_test_embarked], axis=1)
+
+# Model Training
+clf = DecisionTreeClassifier()
+clf.fit(X_train_transformed, y_train)
+
+# Export individual components
+pickle.dump(clf, open('clf.pkl', 'wb'))
+pickle.dump(ohe_sex, open('ohe_sex.pkl', 'wb'))
+pickle.dump(ohe_embarked, open('ohe_embarked.pkl', 'wb'))
+
+```
+
+### 2. Production Prediction (Without Pipeline)
+
+```python
+import numpy as np
+import pickle
+
+# Load transformers and model individually
+clf = pickle.load(open('clf.pkl', 'rb'))
+ohe_sex = pickle.load(open('ohe_sex.pkl', 'rb'))
+ohe_embarked = pickle.load(open('ohe_embarked.pkl', 'rb'))
+
+# New input: [Pclass, Sex, Age, SibSp, Parch, Fare, Embarked]
+test_input = np.array([2, 'male', 31.0, 0, 0, 10.5, 'S'], dtype=object).reshape(1, -1)
+
+# Manually recreate tracking step-by-step preprocessing transformations
+test_input_sex = ohe_sex.transform(test_input[:, 1].reshape(-1, 1))
+test_input_embarked = ohe_embarked.transform(test_input[:, 6].reshape(-1, 1))
+test_input_age = test_input[:, 2].reshape(-1, 1)
+test_input_rem = test_input[:, [0, 3, 4, 5]]
+
+test_input_transformed = np.concatenate([test_input_rem, test_input_age, test_input_sex, test_input_embarked], axis=1)
+
+# Predict
+print(clf.predict(test_input_transformed))
+
+```
+
+---
+
+## Approach 2: **With Pipelines** (The Efficient Way)
+
+### 1. Building and Training the Pipeline
+
+```python
+import pandas as pd
+import pickle
+from sklearn.model_selection import train_test_split
+from sklearn.compose import ColumnTransformer
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import OneHotEncoder, MinMaxScaler
+from sklearn.feature_selection import SelectKBest, chi2
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.pipeline import Pipeline
+
+# Load Dataset
+df = pd.read_csv('titanic.csv')
+df.drop(columns=['PassengerId', 'Name', 'Ticket', 'Cabin'], inplace=True)
+
+X_train, X_test, y_train, y_test = train_test_split(
+    df.drop(columns=['Survived']), df['Survived'], test_size=0.2, random_state=42
+)
+
+# Step 1: Imputation (Using indices instead of names to avoid array conversion errors)
+trf1 = ColumnTransformer([
+    ('impute_age', SimpleImputer(), [2]),
+    ('impute_embarked', SimpleImputer(strategy='most_frequent'), [6])
+], remainder='passthrough')
+
+# Step 2: One Hot Encoding
+trf2 = ColumnTransformer([
+    ('ohe_sex_embarked', OneHotEncoder(sparse_output=False, handle_unknown='ignore'), [1, 6])
+], remainder='passthrough')
+
+# Step 3: Scaling
+trf3 = ColumnTransformer([
+    ('scale', MinMaxScaler(), slice(0, 10))
+])
+
+# Step 4: Feature Selection
+trf4 = SelectKBest(score_func=chi2, k=8)
+
+# Step 5: Model
+trf5 = DecisionTreeClassifier()
+
+# Chain them all into a Pipeline
+pipe = Pipeline([
+    ('trf1', trf1),
+    ('trf2', trf2),
+    ('trf3', trf3),
+    ('trf4', trf4),
+    ('trf5', trf5)
+])
+
+# Single fit command triggers data flow sequentially
+pipe.fit(X_train, y_train)
+
+# Export the entire pipeline structure cleanly
+pickle.dump(pipe, open('pipe.pkl', 'wb'))
+
+```
+
+### 2. Production Prediction (With Pipeline)
+
+```python
+import numpy as np
+import pickle
+
+# Load the single pipeline file
+pipe = pickle.load(open('pipe.pkl', 'rb'))
+
+# New raw data array input matching original feature dataframe format
+test_input2 = np.array([2, 'male', 31.0, 0, 0, 10.5, 'S'], dtype=object).reshape(1, -1)
+
+# One command automatically executes all transformation layers and outputs predictions
+print(pipe.predict(test_input2))
+
+```
+
+<br>
+<br>
