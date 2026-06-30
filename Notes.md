@@ -1470,18 +1470,13 @@ print("Preprocessed Training Shape:", X_train_transformed.shape)
 
 ## **Machine Learning PIPELINES**
 
-Here is a complete summary of the video from [CampusX](https://www.youtube.com/watch?v=xOccYkgRV4Q) along with the code implementations shown in both approaches.
-
----
-
 ## 📌 Video Summary
 
-The video explains **Scikit-Learn Pipelines**, demonstrating how they chain together multiple data preprocessing and modeling steps so that the output of each step serves as the input to the next [00:50](http://www.youtube.com/watch?v=xOccYkgRV4Q&t=50).
-
+The video explains **Scikit-Learn Pipelines**, demonstrating how they chain together multiple data preprocessing and modeling steps so that the output of each step serves as the input to the next.
 The instructor showcases two workflows on the Titanic dataset:
 
-1. **Without Pipelines:** Preprocessing steps like missing value imputation (`SimpleImputer`) and categorical encoding (`OneHotEncoder`) are done manually [07:17](http://www.youtube.com/watch?v=xOccYkgRV4Q&t=437), [08:49](http://www.youtube.com/watch?v=xOccYkgRV4Q&t=529). While training is straightforward, executing this on new test data for a production deployment requires copying and tracking all individual preprocessing steps in the exact sequence, creating highly fragile code [13:28](http://www.youtube.com/watch?v=xOccYkgRV4Q&t=808), [19:39](http://www.youtube.com/watch?v=xOccYkgRV4Q&t=1179).
-2. **With Pipelines:** All steps—Imputation, Encoding, Feature Scaling, Feature Selection, and Model Training—are unified into a single Scikit-Learn `Pipeline` object [23:38](http://www.youtube.com/watch?v=xOccYkgRV4Q&t=1418). When exporting the model via `pickle`, only the unified pipeline object needs to be saved [41:55](http://www.youtube.com/watch?v=xOccYkgRV4Q&t=2515). New production inputs can be processed and predicted with a single `.predict()` call, without changing any client-side code [43:05](http://www.youtube.com/watch?v=xOccYkgRV4Q&t=2585).
+1. **Without Pipelines:** Preprocessing steps like missing value imputation (`SimpleImputer`) and categorical encoding (`OneHotEncoder`) are done manually, While training is straightforward, executing this on new test data for a production deployment requires copying and tracking all individual preprocessing steps in the exact sequence, creating highly fragile code 
+2. **With Pipelines:** All steps—Imputation, Encoding, Feature Scaling, Feature Selection, and Model Training—are unified into a single Scikit-Learn `Pipeline` object. When exporting the model via `pickle`, only the unified pipeline object needs to be saved. New production inputs can be processed and predicted with a single `.predict()` call, without changing any client-side code 
 
 ---
 
@@ -1658,3 +1653,104 @@ print(pipe.predict(test_input2))
 
 <br>
 <br>
+
+# **DAY 30**
+
+## **Mathematical Transformer**
+
+## What & Why?
+
+**Mathematical Transformation** is a feature engineering technique where you apply a mathematical function to data columns to change their underlying distribution.
+
+* **The Ultimate Goal:** To convert a skewed distribution into a **Normal (Gaussian) Distribution** (or close to it).
+* **Why do it?** Linear machine learning models like *Linear Regression* and *Logistic Regression* assume data is normally distributed; forcing the data into normality significantly improves their accuracy and stability. Tree-based algorithms like *Decision Trees* or *Random Forests* do not care about distribution and won't see much change.
+* **How to Check Normality?** Use a **Q-Q Plot (Quantile-Quantile Plot)** 
+The closer your data points align to a 45-degree diagonal line, the closer the data is to being normally distributed 
+---
+
+## 🧮 Formulas & When to Use Them
+
+Here are the 4 primary transformations handled by Scikit-Learn's `FunctionTransformer`:
+
+### 1. Log Transform
+
+$$y = \log(x) \quad \text{or} \quad y = \log(x + 1)$$
+
+* **When to use:** **Right-skewed (positively skewed) data**
+* **Why:** It squashes large outliers and brings extreme values closer on a compressed scale. `log1p` ($x+1$) is safer because standard $\log(0)$ is undefined.
+
+### 2. Reciprocal Transform
+
+$$y = \frac{1}{x}$$
+
+* **When to use:** When small values should become larger and huge values should become smaller.
+* *Note:* Ensure $x \neq 0$ to avoid division-by-zero errors.
+
+### 3. Square Transform
+
+$$y = x^2$$
+
+* **When to use:** **Left-skewed (negatively skewed) data** 
+
+### 4. Square Root Transform
+
+$$y = \sqrt{x}$$
+
+* **When to use:** Moderately right-skewed data; milder than a log transform.
+
+---
+
+## 💻 Python Code Implementation
+
+This snippet uses `scikit-learn`'s `FunctionTransformer` to apply a **Log Transform** to a skewed feature (like `Fare` in Titanic dataset) while keeping other features intact using a `ColumnTransformer`.
+
+```python
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import FunctionTransformer
+from sklearn.compose import ColumnTransformer
+from sklearn.linear_model import LogisticRegression
+
+# 1. Dummy Setup (Simulating Age, Fare, and Survived)
+data = {
+    'Age': [22, 38, 26, 35, 35, 28, 54, 2, 27, 14],
+    'Fare': [7.25, 71.28, 7.92, 53.10, 8.05, 8.46, 51.86, 21.07, 11.13, 30.07],
+    'Survived': [0, 1, 1, 1, 0, 0, 0, 0, 1, 1]
+}
+df = pd.DataFrame(data)
+
+X = df[['Age', 'Fare']]
+y = df['Survived']
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# 2. Define your Mathematical Transformation via FunctionTransformer
+# We use np.log1p (log(x+1)) to cleanly handle any 0 values safely.
+log_transformer = FunctionTransformer(np.log1p)
+
+# 3. Use ColumnTransformer to apply only to the skewed column ('Fare')
+# 'passthrough' ensures 'Age' is not modified.
+trf = ColumnTransformer([
+    ('log_fare', log_transformer, ['Fare'])
+], remainder='passthrough')
+
+# 4. Transform the data
+X_train_transformed = trf.fit_transform(X_train)
+X_test_transformed = trf.transform(X_test)
+
+# 5. Train your model
+model = LogisticRegression()
+model.fit(X_train_transformed, y_train)
+
+print("Model trained successfully on transformed data!")
+
+```
+
+### Swapping Transformations:
+
+If you want to try the other transformations discussed in the video, just replace `np.log1p` in the `FunctionTransformer` with:
+
+* **Reciprocal:** `lambda x: 1 / (x + 0.0001)`
+* **Square:** `lambda x: x2`
+* **Square Root:** `np.sqrt`
