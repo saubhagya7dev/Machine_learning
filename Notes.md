@@ -1364,3 +1364,36 @@ The practical coding walkthrough follows these steps:
 
 
 # **DAY 27**
+
+## **"One Hot Encoding | Handling Categorical Data |**
+
+### 1. The Need for One Hot Encoding (OHE)
+
+* Machine learning algorithms generally require numerical input and cannot process categorical data in text/string format directly.
+* Categorical data is split into two types: **Ordinal** (variables with an intrinsic order, like grades or sizes) and **Nominal** (variables with no inherent order, like colors, gender, or states).
+* While Ordinal Encoding works for ordered data, using it on nominal data (e.g., assigning Yellow=0, Blue=1, Red=2) misleads the ML model into thinking one category is mathematically "greater" than another.
+* **One Hot Encoding** solves this by creating a new binary column (containing only 0 or 1) for every unique category present in the feature.
+
+### 2. Dummy Variable Trap & Multi-collinearity
+
+* The newly created binary columns are called **Dummy Variables**.
+* If a feature has $N$ distinct categories and you keep all $N$ columns, it introduces a mathematical dependency because the sum of all these columns will always equal 1. This issue is called **Multi-collinearity**.
+* Multi-collinearity negatively impacts linear models like Linear and Logistic Regression. To fix this, you must drop one column, keeping only **$N-1$ columns**. If all remaining $N-1$ columns are 0, the model inherently understands that the dropped category is the active one.
+
+### 3. Handling Features with Too Many Categories (High Cardinality)
+
+* If a nominal column has too many unique categories (e.g., a "Car Brand" column with 32 different brands), OHE will create 32 new columns. This vastly increases the dataset's dimensionality and slows down model training.
+* The solution is to identify the most frequently occurring categories (the top threshold) and bundle all the remaining rare categories into a single new category named **"Other"** or **"Uncommon"**. This keeps the number of columns manageable.
+
+### 4. Practical Implementation in Python
+
+The video demonstrates implementation using a car dataset through two different tools:
+
+* **Pandas (`pd.get_dummies`)**: Good for quick Exploratory Data Analysis (EDA). You can pass `drop_first=True` to automatically handle the dummy variable trap. However, it shouldn't be used in production ML pipelines because it doesn't remember the exact order and structure of columns across different runs.
+* **Scikit-Learn (`OneHotEncoder`)**: The ideal approach for machine learning projects. By setting parameters like `drop='first'` and `sparse=False`, you can seamlessly integrate it into production-ready pipelines.
+
+The instructor concludes by noting that manually managing and aligning these encoded numpy arrays with the rest of the numerical data can be tedious, which is why the next lecture will introduce **Column Transformers** to do this efficiently in a single line of code.
+
+<br>
+<br>
+
