@@ -1397,3 +1397,69 @@ The instructor concludes by noting that manually managing and aligning these enc
 <br>
 <br>
 
+# **DAY 28**
+
+## **ColumnTransformer**
+
+## Executive Summary: "Aam Zindagi" vs. "Mentos Zindagi"
+
+When dealing with complex tabular data in machine learning, different columns often require distinct preprocessing treatments.
+
+* **Numerical columns** might need missing value imputation (`SimpleImputer`) or feature scaling.
+* **Ordinal categorical columns** require hierarchical mapping (`OrdinalEncoder`).
+* **Nominal categorical columns** require disjoint mapping (`OneHotEncoder`).
+
+### The Old Painful Way ("Aam Zindagi")
+
+Without a unified framework, you have to chunk out columns individually, apply separate functions, extract `numpy` arrays, and continuously stitch them back together using functions like `np.concatenate`. This becomes highly prone to tracking errors, breaks easily, and creates a nightmare to duplicate onto your validation/test sets without leaking data.
+
+### The ColumnTransformer Solution ("Mentos Zindagi")
+
+Scikit-Learn provides `ColumnTransformer` to neatly package all heterogeneous preprocessing tasks into a single object. It processes specified column bundles concurrently and compiles them instantly into a unified, numeric representation ready for model ingestion.
+
+---
+
+## Core Code Implementation
+
+Here is how you can implement `ColumnTransformer` explicitly matching the walkthrough.
+
+```python
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder
+from sklearn.compose import ColumnTransformer
+
+# 1. Assuming 'df' is loaded containing columns: 'age', 'gender', 'fever', 'cough', 'city', 'has_covid'
+# Splitting into features (X) and target label (y)
+X = df.drop(columns=['has_covid'])
+y = df['has_covid']
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# 2. Define the ColumnTransformer framework
+# Note: In modern scikit-learn versions, use 'sparse_output=False' instead of 'sparse=False'
+transformer = ColumnTransformer(
+    transformers=[
+        ('tnf1', SimpleImputer(), ['fever']),                                             # Mean imputation for numerical tracking
+        ('tnf2', OrdinalEncoder(categories=[['mild', 'strong']]), ['cough']),             # Sequential structural encoding
+        ('tnf3', OneHotEncoder(sparse_output=False, drop='first'), ['gender', 'city'])    # Flat structural categorical encoding
+    ], 
+    remainder='passthrough' # Crucial step to retain unmentioned columns like 'age' intact
+)
+
+# 3. Fit and Transform on training data
+X_train_transformed = transformer.fit_transform(X_train)
+
+# 4. Purely transform your test partition (To strictly prevent data leakage)
+X_test_transformed = transformer.transform(X_test)
+
+print("Preprocessed Training Shape:", X_train_transformed.shape)
+
+```
+
+### Critical Implementation Takeaways:
+
+* **`remainder='passthrough'`**: This argument ensures that columns requiring absolutely no transformations (such as `age` in this specific video) are kept in the final array instead of being dropped by default.
+* **Modernizing Syntax**: Note that newer versions of Scikit-Learn have replaced the `sparse` parameter with `sparse_output=False` inside the `OneHotEncoder` setup to reliably yield dense matrix instances.
