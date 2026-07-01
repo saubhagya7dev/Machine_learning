@@ -1754,3 +1754,92 @@ If you want to try the other transformations discussed in the video, just replac
 * **Reciprocal:** `lambda x: 1 / (x + 0.0001)`
 * **Square:** `lambda x: x2`
 * **Square Root:** `np.sqrt`
+
+
+
+<br>
+<br>
+
+# **DAY 31**
+
+## **Power Transformers**
+## 📌 Video Summary
+
+**Power Transformers**, a family of parametric, monotonic mathematical transformations.
+
+* **Objective:** These transformers are designed to stabilize variance and normalize data distributions, converting non-normal (skewed) data into a **Gaussian-like (Normal) distribution**.
+* **Why it matters:** Many machine learning algorithms—such as Linear Regression, Logistic Regression, and Artificial Neural Networks (ANNs)—perform significantly better or inherently assume that the input numerical features follow a normal distribution.
+* **Finding $\lambda$:** The transformation parameter $\lambda$ determines the power to which the data is raised. It is automatically optimized (typically between $-5$ and $5$) to minimize skewness using techniques like **Maximum Likelihood Estimation (MLE)** or Bayesian Statistics.
+
+---
+
+## 🧮 Mathematical Formulas
+
+The two main types of power transformations supported by `PowerTransformer` are **Box-Cox** and **Yeo-Johnson**.
+
+### 1. Box-Cox Transform
+
+The Box-Cox transformation is a generalized approach where log and square-root transformations are special cases.
+
+> ⚠️ **Strict Restriction:** It can **only** be applied to strictly positive data ($y > 0$). It does not support zero or negative values.
+
+$$y^{(\lambda)} = \begin{cases} \frac{y^\lambda - 1}{\lambda} & \text{if } \lambda \neq 0 \\ \ln(y) & \text{if } \lambda = 0 \end{cases}$$
+
+### 2. Yeo-Johnson Transform
+
+The Yeo-Johnson transformation is a modification of the Box-Cox method created to overcome its limitation.
+
+> **Advantage:** It natively handles **zero and negative numbers** alongside positive values.
+
+$$y^{(\lambda)} = \begin{cases} \frac{(y + 1)^\lambda - 1}{\lambda} & \text{if } \lambda \neq 0, y \geq 0 \\ \ln(y + 1) & \text{if } \lambda = 0, y \geq 0 \\ -\frac{(-y + 1)^{2 - \lambda} - 1}{2 - \lambda} & \text{if } \lambda \neq 2, y < 0 \\ -\ln(-y + 1) & \text{if } \lambda = 2, y < 0 \end{cases}$$
+
+---
+
+## 💻 Python Implementation Code
+
+In `scikit-learn`, both methods are packaged within the `PowerTransformer` class. By default, it also standardizes the output (scales data to a mean of 0 and variance of 1).
+
+```python
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import PowerTransformer
+from sklearn.metrics import r2_score
+
+# 1. Split your data into Train and Test sets to prevent data leakage
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# --- METHOD A: Yeo-Johnson (Default) ---
+# Works out of the box with zero and negative values
+pt_yeo = PowerTransformer(method='yeo-johnson', standardize=True)
+
+X_train_transformed = pt_yeo.fit_transform(X_train)
+X_test_transformed = pt_yeo.transform(X_test)
+
+# --- METHOD B: Box-Cox ---
+# Note: If your data has zeros (like the Concrete dataset in the video), 
+# you can apply a small shift constant before using Box-Cox
+# X_train_positive = X_train + 0.00001 
+
+pt_box = PowerTransformer(method='box-cox', standardize=True)
+# X_train_transformed = pt_box.fit_transform(X_train_positive)
+
+# 2. View the optimized optimal lambda values chosen for each column
+print("Optimized Lambdas:", pt_yeo.lambdas_)
+
+# 3. Fit a baseline model to check performance improvement
+lr = LinearRegression()
+lr.fit(X_train_transformed, y_train)
+y_pred = lr.predict(X_test_transformed)
+
+print("Transformed R2 Score:", r2_score(y_test, y_pred))
+
+```
+
+### 📈 Video Experiment Results:
+
+In the tutorial's concrete strength dataset experiment:
+
+* **Without Transformation:** The cross-validated $R^2$ score was low, sitting around **0.46**.
+* **With Box-Cox/Yeo-Johnson:** The cross-validated $R^2$ score surged significantly to roughly **0.66**, proving how helpful normalization is for linear models!
