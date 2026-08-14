@@ -73,7 +73,7 @@ Based on how much external human supervision the system receives during training
 
 * **4. Reinforcement Learning (Trial & Error):** No initial training data is provided. An autonomous **Agent** interacts with an **Environment** and learns to optimize its choices by collecting **Rewards** for correct moves and **Penalties** for mistakes. Used in robotics and systems like AlphaGo.
 
-![alt text](The-main-types-of-machine-learning-Main-approaches-include-classification-and-regression.webp)
+![alt text](images_of_notes/The-main-types-of-machine-learning-Main-approaches-include-classification-and-regression.webp)
 
 <br>
 <br>
@@ -104,7 +104,7 @@ Based on how much external human supervision the system receives during training
 * **Connectivity Issues:** It fails in environments with limited or no internet access (e.g., remote locations, tracking satellites), where you cannot easily push frequent server updates `[00:08:23]`.
 * **Slow Adaptation to Trends:** Because updates rely on a set schedule, the system cannot react to sudden real-time events or viral shifts instantly. By the time the next batch update runs, the trend may already be irrelevant `[00:09:39]`.
 
-![alt text](1_DmOcKlevCbcNd4n4JBYtzQ.png)
+![alt text](images_of_notes/1_DmOcKlevCbcNd4n4JBYtzQ.png)
 <br>
 <br>
 
@@ -176,7 +176,7 @@ You should opt for Online Learning under the following scenarios:
 # **DAY 6**
 
 # Instance-Based Vs Model-Based Learning
-![alt text](1_esVJb_A1pD8FL4Ol4N7nCw@2x.jpg)
+![alt text](images_of_notes/1_esVJb_A1pD8FL4Ol4N7nCw@2x.jpg)
 ## Core Overview
 
 The lecture focuses on how different Machine Learning (ML) algorithms learn from data. Just like humans learn either by **memorization (rote learning)** or **generalization (understanding the concept)**, machine learning models fall into two primary categories based on their learning approach: **Instance-Based Learning** and **Model-Based Learning**.
@@ -265,7 +265,7 @@ The lecture concludes with a direct comparison between the two approaches across
 # **DAY 7** 
 
 # Challenges In Machine learning - 
-![alt text](0_4fmJ7BUeXBTiz42U.png)
+![alt text](images_of_notes/0_4fmJ7BUeXBTiz42U.png)
 
 ### 1. Data Collection
 
@@ -302,7 +302,7 @@ The lecture concludes with a direct comparison between the two approaches across
 * **Definition:** The exact opposite of overfitting; occurs when a model is too simple to capture the structural trends inherent within the data.
 * **Keypoints:** An underfitted model performs poorly on *both* the training data and new test data. Striking a balance between underfitting and overfitting is a primary objective when selecting model architectures.
 
-![alt text](420046946.webp)
+![alt text](images_of_notes/420046946.webp)
 
 ### 8. Software Integration
 
@@ -377,7 +377,7 @@ Platforms that harvest vast textual data leverage natural language processing to
 
 # Machine Learning Development Life Cycle - 
 
-![alt text](machine_learning_lifecycle.webp)
+![alt text](images_of_notes/machine_learning_lifecycle.webp)
 
 # Machine Learning Lifecycle
 
@@ -529,7 +529,7 @@ Here are the basic features of Model Monitoring and Maintenance:
 
 * **Definition:** In its simplest form, a tensor is a **data structure** or a container used to store numbers. In computer science, it is synonymous with a multidimensional array ($N\text{-Dimensional Array}$).
 * **Importance:** Leading machine learning libraries like Scikit-Learn, TensorFlow, and PyTorch rely on tensors as their most basic building block to store and process data. In fact, Google’s top deep learning library, *TensorFlow*, derives its name directly from this concept.
-![alt text](64798tensor.jpg)
+![alt text](images_of_notes/64798tensor.jpg)
 ### **Types of Tensors and Practical Examples**
 
 The number of dimensions a tensor has is referred to as its **Rank** or **Axis**. The video breaks down the types of tensors from 0D to 5D using real-world applications:
@@ -655,14 +655,13 @@ import requests
 import io
 
 # A. Loading locally [00:07:52]
-df_local = pd.read_csv('aug_train.csv')
+df_local = pd.read_csv("aug_train.csv")
 
 # B. Loading from a Server URL [00:08:33]
 url = "https://raw.githubusercontent.com/campusx-official/100-days-of-machine-learning/main/day15%20-%20working%20with%20csv%20files/aug_train.csv"
 headers = {"User-Agent": "Mozilla/5.0"}
 response = requests.get(url, headers=headers)
 df_url = pd.read_csv(io.StringIO(response.text))
-
 ```
 
 ---
@@ -673,9 +672,8 @@ By default, `pd.read_csv()` looks for commas. If your data is Tab-Separated (`.t
 
 ```python
 # Reading a TSV file and manually providing column names [00:11:34]
-column_names = ['serial_no', 'movie_name', 'release_year', 'rating', 'votes', 'genres']
-df_tsv = pd.read_csv('movie_titles_metadata.tsv', sep='\t', names=column_names)
-
+column_names = ["serial_no", "movie_name", "release_year", "rating", "votes", "genres"]
+df_tsv = pd.read_csv("movie_titles_metadata.tsv", sep="\t", names=column_names)
 ```
 
 ---
@@ -687,11 +685,10 @@ df_tsv = pd.read_csv('movie_titles_metadata.tsv', sep='\t', names=column_names)
 
 ```python
 # Convert 'enrollee_id' column to index [00:14:10]
-df_index = pd.read_csv('aug_train.csv', index_col='enrollee_id')
+df_index = pd.read_csv("aug_train.csv", index_col="enrollee_id")
 
 # Specify that row 1 (instead of 0) contains the actual column names [00:15:13]
-df_header = pd.read_csv('test.csv', header=1)
-
+df_header = pd.read_csv("test.csv", header=1)
 ```
 
 ---
@@ -706,14 +703,15 @@ When handling large datasets, loading every single column or millions of rows wa
 
 ```python
 # Select only 3 specific columns [00:16:26]
-df_cols = pd.read_csv('aug_train.csv', usecols=['enrollee_id', 'gender', 'education_level'])
+df_cols = pd.read_csv(
+    "aug_train.csv", usecols=["enrollee_id", "gender", "education_level"]
+)
 
 # Limit import to the first 100 rows [00:20:02]
-df_rows = pd.read_csv('aug_train.csv', nrows=100)
+df_rows = pd.read_csv("aug_train.csv", nrows=100)
 
 # Skip rows by index or custom rule [00:18:22]
-df_skipped = pd.read_csv('aug_train.csv', skiprows=[0, 2]) # skips row 0 and 2
-
+df_skipped = pd.read_csv("aug_train.csv", skiprows=[0, 2])  # skips row 0 and 2
 ```
 
 ---
@@ -725,11 +723,10 @@ df_skipped = pd.read_csv('aug_train.csv', skiprows=[0, 2]) # skips row 0 and 2
 
 ```python
 # Fix encoding issues with 'latin-1' [00:22:18]
-df_encoded = pd.read_csv('zomato.csv', encoding='latin-1')
+df_encoded = pd.read_csv("zomato.csv", encoding="latin-1")
 
 # Skip malformed/broken lines instead of crashing [00:24:05]
-df_cleaned = pd.read_csv('books.csv', sep=';', encoding='latin-1', on_bad_lines='skip')
-
+df_cleaned = pd.read_csv("books.csv", sep=";", encoding="latin-1", on_bad_lines="skip")
 ```
 
 ---
@@ -742,10 +739,11 @@ df_cleaned = pd.read_csv('books.csv', sep=';', encoding='latin-1', on_bad_lines=
 
 ```python
 # 1. Force a datatype conversion [00:26:03]
-df_dtype = pd.read_csv('aug_train.csv', dtype={'target': int})
+df_dtype = pd.read_csv("aug_train.csv", dtype={"target": int})
 
 # 2. Automatically parse columns into datetime objects [00:27:44]
-df_dates = pd.read_csv('IPL Matches 2008-2020.csv', parse_dates=['date'])
+df_dates = pd.read_csv("IPL Matches 2008-2020.csv", parse_dates=["date"])
+
 
 # 3. Transform column values on import using a converter function [00:31:06]
 def short_team_name(name):
@@ -753,8 +751,10 @@ def short_team_name(name):
         return "RCB"
     return name
 
-df_converted = pd.read_csv('IPL Matches 2008-2020.csv', converters={'team1': short_team_name})
 
+df_converted = pd.read_csv(
+    "IPL Matches 2008-2020.csv", converters={"team1": short_team_name}
+)
 ```
 
 ---
@@ -881,7 +881,6 @@ df_page1 = pd.DataFrame(data_json["results"])[
 
 # Quick check on the structural shape of your targeted DataFrame
 print(df_page1.head())
-
 ```
 
 ---
@@ -984,7 +983,6 @@ df.head()
 
 # To view 5 random rows (recommended to avoid layout bias)
 df.sample(5)
-
 ```
 
 ### 3. What is the data type of each column?
@@ -1031,7 +1029,7 @@ Correlation reveals how features relate to each other and the target variable (o
 df.corr(numeric_only=True)
 
 # To check correlation specifically with a target variable (e.g., 'Survived')
-df.corr(numeric_only=True)['Survived']
+df.corr(numeric_only=True)["Survived"]
 ```
 
 <br>
@@ -1203,11 +1201,13 @@ from sklearn.preprocessing import StandardScaler
 
 # 1. Assume 'df' is your DataFrame with features and target
 # Let's say columns are ['Age', 'EstimatedSalary'] and target is 'Purchased'
-X = df[['Age', 'EstimatedSalary']]
-y = df['Purchased']
+X = df[["Age", "EstimatedSalary"]]
+y = df["Purchased"]
 
 # 2. Train-Test Split (Crucial step before scaling)
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.3, random_state=42
+)
 
 # 3. Initialize the StandardScaler
 scaler = StandardScaler()
@@ -1219,7 +1219,7 @@ scaler.fit(X_train)
 X_train_scaled = scaler.transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 
-# Note: StandardScaler returns NumPy arrays. 
+# Note: StandardScaler returns NumPy arrays.
 # Optional: Convert back to DataFrame to preserve column names for visualization
 X_train_scaled = pd.DataFrame(X_train_scaled, columns=X_train.columns)
 X_test_scaled = pd.DataFrame(X_test_scaled, columns=X_test.columns)
@@ -1294,7 +1294,9 @@ from sklearn.preprocessing import MinMaxScaler, MaxAbsScaler, RobustScaler
 # y = df['target']
 
 # 2. Always split into training and testing sets first!
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
 
 # =====================================================================
 # APPROACH A: MinMax Scaling (Most Common)
@@ -1321,7 +1323,6 @@ X_test_robust = robust_scaler.transform(X_test)
 
 # Note: Scikit-learn outputs NumPy arrays. Convert back to DataFrame if needed:
 # X_train_scaled_df = pd.DataFrame(X_train_minmax, columns=X_train.columns)
-
 ```
 
 # **DAY 26**
@@ -1435,20 +1436,30 @@ from sklearn.compose import ColumnTransformer
 
 # 1. Assuming 'df' is loaded containing columns: 'age', 'gender', 'fever', 'cough', 'city', 'has_covid'
 # Splitting into features (X) and target label (y)
-X = df.drop(columns=['has_covid'])
-y = df['has_covid']
+X = df.drop(columns=["has_covid"])
+y = df["has_covid"]
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
 
 # 2. Define the ColumnTransformer framework
 # Note: In modern scikit-learn versions, use 'sparse_output=False' instead of 'sparse=False'
 transformer = ColumnTransformer(
     transformers=[
-        ('tnf1', SimpleImputer(), ['fever']),                                             # Mean imputation for numerical tracking
-        ('tnf2', OrdinalEncoder(categories=[['mild', 'strong']]), ['cough']),             # Sequential structural encoding
-        ('tnf3', OneHotEncoder(sparse_output=False, drop='first'), ['gender', 'city'])    # Flat structural categorical encoding
-    ], 
-    remainder='passthrough' # Crucial step to retain unmentioned columns like 'age' intact
+        ("tnf1", SimpleImputer(), ["fever"]),  # Mean imputation for numerical tracking
+        (
+            "tnf2",
+            OrdinalEncoder(categories=[["mild", "strong"]]),
+            ["cough"],
+        ),  # Sequential structural encoding
+        (
+            "tnf3",
+            OneHotEncoder(sparse_output=False, drop="first"),
+            ["gender", "city"],
+        ),  # Flat structural categorical encoding
+    ],
+    remainder="passthrough",  # Crucial step to retain unmentioned columns like 'age' intact
 )
 
 # 3. Fit and Transform on training data
@@ -1458,7 +1469,6 @@ X_train_transformed = transformer.fit_transform(X_train)
 X_test_transformed = transformer.transform(X_test)
 
 print("Preprocessed Training Shape:", X_train_transformed.shape)
-
 ```
 
 ### Critical Implementation Takeaways:
@@ -1497,50 +1507,53 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score
 
 # Load and drop unnecessary columns
-df = pd.read_csv('titanic.csv')
-df.drop(columns=['PassengerId', 'Name', 'Ticket', 'Cabin'], inplace=True)
+df = pd.read_csv("titanic.csv")
+df.drop(columns=["PassengerId", "Name", "Ticket", "Cabin"], inplace=True)
 
 # Train Test Split
 X_train, X_test, y_train, y_test = train_test_split(
-    df.drop(columns=['Survived']), df['Survived'], test_size=0.2, random_state=42
+    df.drop(columns=["Survived"]), df["Survived"], test_size=0.2, random_state=42
 )
 
 # Imputation
 si_age = SimpleImputer()
-si_embarked = SimpleImputer(strategy='most_frequent')
+si_embarked = SimpleImputer(strategy="most_frequent")
 
-X_train_age = si_age.fit_transform(X_train[['Age']])
-X_train_embarked = si_embarked.fit_transform(X_train[['Embarked']])
+X_train_age = si_age.fit_transform(X_train[["Age"]])
+X_train_embarked = si_embarked.fit_transform(X_train[["Embarked"]])
 
-X_test_age = si_age.transform(X_test[['Age']])
-X_test_embarked = si_embarked.transform(X_test[['Embarked']])
+X_test_age = si_age.transform(X_test[["Age"]])
+X_test_embarked = si_embarked.transform(X_test[["Embarked"]])
 
 # One Hot Encoding
-ohe_sex = OneHotEncoder(sparse_output=False, handle_unknown='ignore')
-ohe_embarked = OneHotEncoder(sparse_output=False, handle_unknown='ignore')
+ohe_sex = OneHotEncoder(sparse_output=False, handle_unknown="ignore")
+ohe_embarked = OneHotEncoder(sparse_output=False, handle_unknown="ignore")
 
-X_train_sex = ohe_sex.fit_transform(X_train[['Sex']])
+X_train_sex = ohe_sex.fit_transform(X_train[["Sex"]])
 X_train_embarked = ohe_embarked.fit_transform(X_train_embarked)
 
-X_test_sex = ohe_sex.transform(X_test[['Sex']])
+X_test_sex = ohe_sex.transform(X_test[["Sex"]])
 X_test_embarked = ohe_embarked.transform(X_test_embarked)
 
 # Concatenate remaining features back together
-X_train_rem = X_train.drop(columns=['Sex', 'Age', 'Embarked']).values
-X_test_rem = X_test.drop(columns=['Sex', 'Age', 'Embarked']).values
+X_train_rem = X_train.drop(columns=["Sex", "Age", "Embarked"]).values
+X_test_rem = X_test.drop(columns=["Sex", "Age", "Embarked"]).values
 
-X_train_transformed = np.concatenate([X_train_rem, X_train_age, X_train_sex, X_train_embarked], axis=1)
-X_test_transformed = np.concatenate([X_test_rem, X_test_age, X_test_sex, X_test_embarked], axis=1)
+X_train_transformed = np.concatenate(
+    [X_train_rem, X_train_age, X_train_sex, X_train_embarked], axis=1
+)
+X_test_transformed = np.concatenate(
+    [X_test_rem, X_test_age, X_test_sex, X_test_embarked], axis=1
+)
 
 # Model Training
 clf = DecisionTreeClassifier()
 clf.fit(X_train_transformed, y_train)
 
 # Export individual components
-pickle.dump(clf, open('clf.pkl', 'wb'))
-pickle.dump(ohe_sex, open('ohe_sex.pkl', 'wb'))
-pickle.dump(ohe_embarked, open('ohe_embarked.pkl', 'wb'))
-
+pickle.dump(clf, open("clf.pkl", "wb"))
+pickle.dump(ohe_sex, open("ohe_sex.pkl", "wb"))
+pickle.dump(ohe_embarked, open("ohe_embarked.pkl", "wb"))
 ```
 
 ### 2. Production Prediction (Without Pipeline)
@@ -1550,12 +1563,12 @@ import numpy as np
 import pickle
 
 # Load transformers and model individually
-clf = pickle.load(open('clf.pkl', 'rb'))
-ohe_sex = pickle.load(open('ohe_sex.pkl', 'rb'))
-ohe_embarked = pickle.load(open('ohe_embarked.pkl', 'rb'))
+clf = pickle.load(open("clf.pkl", "rb"))
+ohe_sex = pickle.load(open("ohe_sex.pkl", "rb"))
+ohe_embarked = pickle.load(open("ohe_embarked.pkl", "rb"))
 
 # New input: [Pclass, Sex, Age, SibSp, Parch, Fare, Embarked]
-test_input = np.array([2, 'male', 31.0, 0, 0, 10.5, 'S'], dtype=object).reshape(1, -1)
+test_input = np.array([2, "male", 31.0, 0, 0, 10.5, "S"], dtype=object).reshape(1, -1)
 
 # Manually recreate tracking step-by-step preprocessing transformations
 test_input_sex = ohe_sex.transform(test_input[:, 1].reshape(-1, 1))
@@ -1563,11 +1576,12 @@ test_input_embarked = ohe_embarked.transform(test_input[:, 6].reshape(-1, 1))
 test_input_age = test_input[:, 2].reshape(-1, 1)
 test_input_rem = test_input[:, [0, 3, 4, 5]]
 
-test_input_transformed = np.concatenate([test_input_rem, test_input_age, test_input_sex, test_input_embarked], axis=1)
+test_input_transformed = np.concatenate(
+    [test_input_rem, test_input_age, test_input_sex, test_input_embarked], axis=1
+)
 
 # Predict
 print(clf.predict(test_input_transformed))
-
 ```
 
 ---
@@ -1588,28 +1602,36 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.pipeline import Pipeline
 
 # Load Dataset
-df = pd.read_csv('titanic.csv')
-df.drop(columns=['PassengerId', 'Name', 'Ticket', 'Cabin'], inplace=True)
+df = pd.read_csv("titanic.csv")
+df.drop(columns=["PassengerId", "Name", "Ticket", "Cabin"], inplace=True)
 
 X_train, X_test, y_train, y_test = train_test_split(
-    df.drop(columns=['Survived']), df['Survived'], test_size=0.2, random_state=42
+    df.drop(columns=["Survived"]), df["Survived"], test_size=0.2, random_state=42
 )
 
 # Step 1: Imputation (Using indices instead of names to avoid array conversion errors)
-trf1 = ColumnTransformer([
-    ('impute_age', SimpleImputer(), [2]),
-    ('impute_embarked', SimpleImputer(strategy='most_frequent'), [6])
-], remainder='passthrough')
+trf1 = ColumnTransformer(
+    [
+        ("impute_age", SimpleImputer(), [2]),
+        ("impute_embarked", SimpleImputer(strategy="most_frequent"), [6]),
+    ],
+    remainder="passthrough",
+)
 
 # Step 2: One Hot Encoding
-trf2 = ColumnTransformer([
-    ('ohe_sex_embarked', OneHotEncoder(sparse_output=False, handle_unknown='ignore'), [1, 6])
-], remainder='passthrough')
+trf2 = ColumnTransformer(
+    [
+        (
+            "ohe_sex_embarked",
+            OneHotEncoder(sparse_output=False, handle_unknown="ignore"),
+            [1, 6],
+        )
+    ],
+    remainder="passthrough",
+)
 
 # Step 3: Scaling
-trf3 = ColumnTransformer([
-    ('scale', MinMaxScaler(), slice(0, 10))
-])
+trf3 = ColumnTransformer([("scale", MinMaxScaler(), slice(0, 10))])
 
 # Step 4: Feature Selection
 trf4 = SelectKBest(score_func=chi2, k=8)
@@ -1618,20 +1640,15 @@ trf4 = SelectKBest(score_func=chi2, k=8)
 trf5 = DecisionTreeClassifier()
 
 # Chain them all into a Pipeline
-pipe = Pipeline([
-    ('trf1', trf1),
-    ('trf2', trf2),
-    ('trf3', trf3),
-    ('trf4', trf4),
-    ('trf5', trf5)
-])
+pipe = Pipeline(
+    [("trf1", trf1), ("trf2", trf2), ("trf3", trf3), ("trf4", trf4), ("trf5", trf5)]
+)
 
 # Single fit command triggers data flow sequentially
 pipe.fit(X_train, y_train)
 
 # Export the entire pipeline structure cleanly
-pickle.dump(pipe, open('pipe.pkl', 'wb'))
-
+pickle.dump(pipe, open("pipe.pkl", "wb"))
 ```
 
 ### 2. Production Prediction (With Pipeline)
@@ -1641,14 +1658,13 @@ import numpy as np
 import pickle
 
 # Load the single pipeline file
-pipe = pickle.load(open('pipe.pkl', 'rb'))
+pipe = pickle.load(open("pipe.pkl", "rb"))
 
 # New raw data array input matching original feature dataframe format
-test_input2 = np.array([2, 'male', 31.0, 0, 0, 10.5, 'S'], dtype=object).reshape(1, -1)
+test_input2 = np.array([2, "male", 31.0, 0, 0, 10.5, "S"], dtype=object).reshape(1, -1)
 
 # One command automatically executes all transformation layers and outputs predictions
 print(pipe.predict(test_input2))
-
 ```
 
 <br>
@@ -1714,16 +1730,18 @@ from sklearn.linear_model import LogisticRegression
 
 # 1. Dummy Setup (Simulating Age, Fare, and Survived)
 data = {
-    'Age': [22, 38, 26, 35, 35, 28, 54, 2, 27, 14],
-    'Fare': [7.25, 71.28, 7.92, 53.10, 8.05, 8.46, 51.86, 21.07, 11.13, 30.07],
-    'Survived': [0, 1, 1, 1, 0, 0, 0, 0, 1, 1]
+    "Age": [22, 38, 26, 35, 35, 28, 54, 2, 27, 14],
+    "Fare": [7.25, 71.28, 7.92, 53.10, 8.05, 8.46, 51.86, 21.07, 11.13, 30.07],
+    "Survived": [0, 1, 1, 1, 0, 0, 0, 0, 1, 1],
 }
 df = pd.DataFrame(data)
 
-X = df[['Age', 'Fare']]
-y = df['Survived']
+X = df[["Age", "Fare"]]
+y = df["Survived"]
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
 
 # 2. Define your Mathematical Transformation via FunctionTransformer
 # We use np.log1p (log(x+1)) to cleanly handle any 0 values safely.
@@ -1731,9 +1749,9 @@ log_transformer = FunctionTransformer(np.log1p)
 
 # 3. Use ColumnTransformer to apply only to the skewed column ('Fare')
 # 'passthrough' ensures 'Age' is not modified.
-trf = ColumnTransformer([
-    ('log_fare', log_transformer, ['Fare'])
-], remainder='passthrough')
+trf = ColumnTransformer(
+    [("log_fare", log_transformer, ["Fare"])], remainder="passthrough"
+)
 
 # 4. Transform the data
 X_train_transformed = trf.fit_transform(X_train)
@@ -1744,7 +1762,6 @@ model = LogisticRegression()
 model.fit(X_train_transformed, y_train)
 
 print("Model trained successfully on transformed data!")
-
 ```
 
 ### Swapping Transformations:
@@ -1808,21 +1825,23 @@ from sklearn.preprocessing import PowerTransformer
 from sklearn.metrics import r2_score
 
 # 1. Split your data into Train and Test sets to prevent data leakage
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
 
 # --- METHOD A: Yeo-Johnson (Default) ---
 # Works out of the box with zero and negative values
-pt_yeo = PowerTransformer(method='yeo-johnson', standardize=True)
+pt_yeo = PowerTransformer(method="yeo-johnson", standardize=True)
 
 X_train_transformed = pt_yeo.fit_transform(X_train)
 X_test_transformed = pt_yeo.transform(X_test)
 
 # --- METHOD B: Box-Cox ---
-# Note: If your data has zeros (like the Concrete dataset in the video), 
+# Note: If your data has zeros (like the Concrete dataset in the video),
 # you can apply a small shift constant before using Box-Cox
-# X_train_positive = X_train + 0.00001 
+# X_train_positive = X_train + 0.00001
 
-pt_box = PowerTransformer(method='box-cox', standardize=True)
+pt_box = PowerTransformer(method="box-cox", standardize=True)
 # X_train_transformed = pt_box.fit_transform(X_train_positive)
 
 # 2. View the optimized optimal lambda values chosen for each column
@@ -1834,7 +1853,6 @@ lr.fit(X_train_transformed, y_train)
 y_pred = lr.predict(X_test_transformed)
 
 print("Transformed R2 Score:", r2_score(y_test, y_pred))
-
 ```
 
 ### 📈 Video Experiment Results:
@@ -1903,25 +1921,30 @@ from sklearn.preprocessing import KBinsDiscretizer, Binarizer
 from sklearn.compose import ColumnTransformer
 
 # Dummy dataset containing Age, Fare, and Family Size
-data = pd.DataFrame({
-    'Age': [22, 38, 26, 35, 54, 2, 27, 14, 4],
-    'Fare': [7.25, 71.28, 7.92, 53.10, 8.05, 21.07, 11.13, 30.07, 16.70],
-    'Family': [1, 1, 0, 5, 0, 4, 0, 2, 1]
-})
+data = pd.DataFrame(
+    {
+        "Age": [22, 38, 26, 35, 54, 2, 27, 14, 4],
+        "Fare": [7.25, 71.28, 7.92, 53.10, 8.05, 21.07, 11.13, 30.07, 16.70],
+        "Family": [1, 1, 0, 5, 0, 4, 0, 2, 1],
+    }
+)
 
 # ==========================================
 # 1. DISCRETIZATION (BINNING) IMPLEMENTATION
 # ==========================================
 
 # Quantile Binning for Age, Uniform Binning for Fare
-kbin_age = KBinsDiscretizer(n_bins=5, encode='ordinal', strategy='quantile')
-kbin_fare = KBinsDiscretizer(n_bins=5, encode='ordinal', strategy='uniform')
+kbin_age = KBinsDiscretizer(n_bins=5, encode="ordinal", strategy="quantile")
+kbin_fare = KBinsDiscretizer(n_bins=5, encode="ordinal", strategy="uniform")
 
 # Applying transformations via ColumnTransformer
-trf1 = ColumnTransformer([
-    ('first', kbin_age, [0]),   # Apply to Age (Index 0)
-    ('second', kbin_fare, [1])  # Apply to Fare (Index 1)
-], remainder='passthrough')
+trf1 = ColumnTransformer(
+    [
+        ("first", kbin_age, [0]),  # Apply to Age (Index 0)
+        ("second", kbin_fare, [1]),  # Apply to Fare (Index 1)
+    ],
+    remainder="passthrough",
+)
 
 data_binned = trf1.fit_transform(data)
 print("Binned Data Matrix:\n", data_binned)
@@ -1934,13 +1957,15 @@ print("Binned Data Matrix:\n", data_binned)
 # Threshold = 0: Values <= 0 become 0, values > 0 become 1
 binarizer = Binarizer(threshold=0.0, copy=False)
 
-trf2 = ColumnTransformer([
-    ('binarize_family', binarizer, [2]) # Apply to Family column (Index 2)
-], remainder='passthrough')
+trf2 = ColumnTransformer(
+    [
+        ("binarize_family", binarizer, [2])  # Apply to Family column (Index 2)
+    ],
+    remainder="passthrough",
+)
 
 data_binarized = trf2.fit_transform(data)
 print("\nBinarized Data Matrix (Family modified to Binary):\n", data_binarized)
-
 ```
 
 <br>
