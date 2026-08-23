@@ -17,27 +17,25 @@ However, I encourage you to treat the material as a **learning reference rather 
 ```text
 Machine-Learning/
 │
-├── 01-Python-for-ML/        # NumPy, Pandas, Matplotlib
+├── 01-Python-for-ML/        # NumPy, Pandas, Matplotlib, Seaborn
 ├── 02-Mathematics/          # Linear Algebra, Probability, Statistics, Calculus
 ├── 03-Data-Preprocessing/   # Missing Values, Outliers, Encoding, Scaling
 ├── 04-EDA/                  # Univariate, Bivariate, Multivariate, Visualization
+├── 05-Feature-Engineering/  # Selection, Extraction, Transformation
 │
-├── 05-Supervised-Learning/
+├── 06-Supervised-Learning/
 │   ├── Regression/          # Linear, Polynomial, Ridge, Lasso
 │   └── Classification/      # Logistic, KNN, Naive Bayes, Trees, RF, SVM, XGBoost
 │
-├── 06-Unsupervised-Learning/
+├── 07-Unsupervised-Learning/
 │   ├── Clustering/          # K-Means, Hierarchical, DBSCAN
 │   └── Dimensionality-Reduction/ # PCA, LDA
 │
-├── 07-Model-Evaluation/     # Metrics, Cross-Validation, Bias-Variance, Tuning
-├── 08-Ensemble-Learning/    # Bagging, Boosting, Random Forest, XGBoost
-├── 09-Feature-Engineering/  # Selection, Extraction, Transformation
+├── 08-Model-Evaluation/     # Metrics, Cross-Validation, Bias-Variance, Tuning
+├── 09-Ensemble-Learning/    # Bagging, Boosting, Random Forest, XGBoost
 │
-├── 10-Experiments/          # EXP-001, EXP-002, EXP-003...
-├── 11-Projects/             # Applied ML Projects
-│
-└── 12-Practice-roughworks /    # Raw practice and rough works to learn from
+├── 10-Experiment-roughwork/ # Raw practice and rough works to learn from
+└──  11-Projects/            # Applied ML in real world.
 ```
 
 The progression follows a simple principle:
