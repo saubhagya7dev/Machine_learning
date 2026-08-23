@@ -1,4 +1,4 @@
-# Probability 
+# Probability for Machine Learning
 
 Probability is used in Machine Learning to model **uncertainty, randomness, and likelihood of events**. It is especially important in classification, Bayesian methods, statistics, and generative models.
 
