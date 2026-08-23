@@ -24,9 +24,9 @@ Examples:
 
 A **vector** is an ordered collection of numbers.
 
-[
+$$
 v = [v_1, v_2, ..., v_n]
-]
+$$
 
 Example:
 
@@ -49,9 +49,9 @@ a - b
 
 ### Dot Product
 
-[
+$$
 a \cdot b = \sum_{i=1}^{n} a_i b_i
-]
+$$
 
 ```python
 np.dot(a, b)
@@ -65,13 +65,13 @@ The dot product is heavily used in **linear models and neural networks**.
 
 A **matrix** is a rectangular arrangement of numbers.
 
-[
+$$
 A =
 \begin{bmatrix}
 1 & 2 \
 3 & 4
 \end{bmatrix}
-]
+$$
 
 ```python
 A = np.array([[1, 2], [3, 4]])
@@ -98,9 +98,9 @@ A + B
 
 ### Matrix Multiplication
 
-[
+$$
 C = AB
-]
+$$
 
 ```python
 C = A @ B
@@ -114,9 +114,9 @@ Matrix multiplication is fundamental to **neural network computations**.
 
 The transpose swaps rows and columns.
 
-[
+$$
 A^T
-]
+$$
 
 ```python
 A.T
@@ -138,13 +138,13 @@ Aᵀ = [[1, 3],
 
 An identity matrix has `1`s on the main diagonal and `0`s elsewhere.
 
-[
+$$
 I =
 \begin{bmatrix}
 1 & 0 \
 0 & 1
 \end{bmatrix}
-]
+$$
 
 ```python
 np.eye(2)
@@ -152,9 +152,9 @@ np.eye(2)
 
 It behaves like `1` in matrix multiplication:
 
-[
+$$
 AI = IA = A
-]
+$$
 
 ---
 
@@ -164,17 +164,17 @@ The determinant is a scalar value calculated from a square matrix.
 
 For a 2×2 matrix:
 
-[
+$$
 A =
 \begin{bmatrix}
 a & b \
 c & d
 \end{bmatrix}
-]
+$$
 
-[
+$$
 \det(A) = ad - bc
-]
+$$
 
 ```python
 np.linalg.det(A)
@@ -188,15 +188,15 @@ A determinant of `0` means the matrix is **singular** and does not have an inver
 
 The inverse of a matrix (A) is written as:
 
-[
+$$
 A^{-1}
-]
+$$
 
 such that:
 
-[
+$$
 AA^{-1} = I
-]
+$$
 
 ```python
 np.linalg.inv(A)
@@ -210,9 +210,9 @@ Only non-singular square matrices have an inverse.
 
 For a matrix (A):
 
-[
+$$
 Av = \lambda v
-]
+$$
 
 Where:
 
@@ -243,15 +243,15 @@ A norm measures the **magnitude or length of a vector**.
 
 For a vector:
 
-[
+$$
 v = [v_1,v_2,...,v_n]
-]
+$$
 
 The L2 norm is:
 
-[
+$$
 ||v||_2 = \sqrt{\sum v_i^2}
-]
+$$
 
 ```python
 np.linalg.norm(v)
@@ -265,9 +265,9 @@ Norms are widely used in **regularization and optimization**.
 
 A matrix can transform a vector.
 
-[
+$$
 y = Ax
-]
+$$
 
 This can represent operations such as:
 
