@@ -1,4 +1,4 @@
-**## Inshort - overall understanding of process**
+## Inshort - overall understanding of process
 
 ```text
 Outliers
