@@ -1,6 +1,6 @@
-# Jupyter Notebook & Virtual Environment Troubleshooting
+## Jupyter Notebook & Virtual Environment Troubleshooting
 
-## Problem Encountered
+### Problem Encountered
 
 I created a virtual environment inside my `Machine_Learning` project and installed Jupyter Notebook. When I opened a `.ipynb` file in VS Code and tried to run a cell, I encountered:
 

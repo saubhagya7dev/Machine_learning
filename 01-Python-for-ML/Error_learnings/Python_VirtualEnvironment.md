@@ -1,4 +1,4 @@
-# Python Virtual Environments — Complete Guide
+# Python Virtual Environments
 
 A **virtual environment** in Python is an isolated environment that allows a project to have its own Python packages and dependencies without interfering with other projects or the system-wide Python installation.
 
