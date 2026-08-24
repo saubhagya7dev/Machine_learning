@@ -68,7 +68,7 @@ A **matrix** is a rectangular arrangement of numbers.
 $$
 A =
 \begin{bmatrix}
-1 & 2 \
+1 & 2 \\
 3 & 4
 \end{bmatrix}
 $$
