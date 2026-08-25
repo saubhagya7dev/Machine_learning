@@ -22,6 +22,9 @@ Machine-Learning/
 │   ├── Encoding/
 │   ├── Scaling/
 │   └── Feature-Engineering/
+|        ├── Feature-Selection/
+│        ├── Feature-Extraction/
+│        └── Feature-Transformation/
 │
 ├── 04-EDA/
 │   ├── Univariate-Analysis/
@@ -68,23 +71,14 @@ Machine-Learning/
 │   ├── Random-Forest/
 │   └── XGBoost/
 │
-├── 09-Feature-Engineering/
-│   ├── Feature-Selection/
-│   ├── Feature-Extraction/
-│   └── Feature-Transformation/
-│
 ├── 10-Experiments/
 │   ├── EXP-001/
 │   ├── EXP-002/
 │   └── EXP-003/
 │
-├── 11-Projects/
-│   ├── Heart-Disease-Prediction/
-│   ├── House-Price-Prediction/
-│   └── Fraud-Detection/
-│
-└── Learning-Diary/
-    ├── 2026-08/
-    ├── 2026-09/
-    └── 2026-10/
+└──11-Projects/
+    ├── Heart-Disease-Prediction/
+    ├── House-Price-Prediction/
+    └── Fraud-Detection/
+
 ```
