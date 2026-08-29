@@ -20,22 +20,23 @@ Machine-Learning/
 ├── 01-Python-for-ML/        # NumPy, Pandas, Matplotlib, Seaborn
 ├── 02-Mathematics/          # Linear Algebra, Probability, Statistics, Calculus
 ├── 03-Data-Preprocessing/   # Missing Values, Outliers, Encoding, Scaling
+|   └── Feature Engineering  # Selection, Extraction, Transformation   
+| 
 ├── 04-EDA/                  # Univariate, Bivariate, Multivariate, Visualization
-├── 05-Feature-Engineering/  # Selection, Extraction, Transformation
 │
-├── 06-Supervised-Learning/
+├── 05-Supervised-Learning/
 │   ├── Regression/          # Linear, Polynomial, Ridge, Lasso
 │   └── Classification/      # Logistic, KNN, Naive Bayes, Trees, RF, SVM, XGBoost
 │
-├── 07-Unsupervised-Learning/
+├── 06-Unsupervised-Learning/
 │   ├── Clustering/          # K-Means, Hierarchical, DBSCAN
 │   └── Dimensionality-Reduction/ # PCA, LDA
 │
-├── 08-Model-Evaluation/     # Metrics, Cross-Validation, Bias-Variance, Tuning
-├── 09-Ensemble-Learning/    # Bagging, Boosting, Random Forest, XGBoost
+├── 07-Model-Evaluation/     # Metrics, Cross-Validation, Bias-Variance, Tuning
+├── 08-Ensemble-Learning/    # Bagging, Boosting, Random Forest, XGBoost
 │
-├── 10-Experiment-roughwork/ # Raw practice and rough works to learn from
-└──  11-Projects/            # Applied ML in real world.
+├── 09-Experiment-roughwork/ # Raw practice and rough works to learn from
+└── 10-Projects/            # Applied ML in real world.
 ```
 
 The progression follows a simple principle:
