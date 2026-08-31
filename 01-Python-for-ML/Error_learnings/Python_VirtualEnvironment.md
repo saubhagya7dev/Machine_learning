@@ -124,7 +124,7 @@ my_project/
 Run:
 
 ```powershell
-python -m venv venv
+python -m venv .venv
 ```
 
 Here:
