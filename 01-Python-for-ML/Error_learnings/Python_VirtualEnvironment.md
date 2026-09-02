@@ -156,12 +156,12 @@ at the end is the name of the environment.
 So:
 
 ```powershell
-python -m venv venv
+python -m venv .venv
 ```
 
 means:
 
-> Use Python's `venv` module to create a virtual environment named `venv`.
+> Use Python's `venv` module to create a virtual environment named `.venv`.
 
 ---
 
