@@ -128,6 +128,13 @@ git log
 ```bash
 git log --oneline -5
 ```
+```bash
+git log --pretty=format:"%h - %ad - %s" --date=short
+
+```
+```bash
+git log --pretty=format:"%ad - %s" --date=short
+```
 
 
 Latest 5 commits:
